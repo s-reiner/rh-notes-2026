@@ -27,5 +27,13 @@ the author takes responsibility for the content. Corrections are welcome.**
    primes, `lab/quartic/`), so the first stage would start at 7/8; no automorphic input of the required shape is known, because quartic
    Gauss sums are Whittaker coefficients of the theta on the 4-fold cover of GL_3 and every available transformation has conductor N(h)^3.
 
+**Lean, Li theorem (partial).** `lean/LiPointwise.lean` formalizes the pointwise content of the Li note: the Jordan-type inequality
+1 − cos x ≥ 2x²/π², the angle bounds 1/γ − 1/(12γ³) ≤ θ(γ) ≤ 1/γ, the off-line quadruple identity and its bound 4 − 4cosh(n log‖w‖),
+the logarithm estimate |log(1+x) − x| ≤ 2x² (|x| ≤ 1/2), and the δ-bound |log‖1 − 1/ρ‖| ≤ (|1−2β| + 2γ⁻²)/(2γ²). All check with
+axioms propext/Classical.choice/Quot.sound. NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit
+zero count), the Stieltjes/Abel-summation lemmas (3, 4, 4′), and the numerical interval chain, which remains an external Arb certificate.
+The Lean δ-bound uses the Mathlib-provable constant 2x² (the note proves x²); the certificate passes unchanged with the corresponding
+c = 1 + 2·T₀⁻² (same N₀).
+
 Reproduce: `pip install mpmath sympy python-flint scipy`; `python3 lab/certify_li_threshold.py` (< 1 min). Lean: a Mathlib project
 (`lake new X math && lake exe cache get`), copy `lean/FloorBarrier.lean`, `lake env lean FloorBarrier.lean`.
