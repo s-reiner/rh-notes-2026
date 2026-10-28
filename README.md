@@ -33,9 +33,11 @@ the logarithm estimate |log(1+x) − x| ≤ 2x² (|x| ≤ 1/2), and the δ-bound
 axioms propext/Classical.choice/Quot.sound. `lean/LiAbel.lean` formalizes the Abel-summation step used in Lemmas 3, 4, 4′: for a finite
 set of ordinates in (T₀, T] and g of class C¹, Σ g(γ) = card·g(T) − ∫ g′·N(t) dt (`abel_sum`), and the tail inequality
 Σ g(γ) ≤ g(T₀)N⁺(T₀) + ∫ g·(N⁺)′ for g ≥ 0 decreasing and any C¹ majorant N⁺ of the counting function (`tail_sum_le`, via
-Mathlib's integration by parts). NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit
-zero count), the explicit evaluation of these integrals for g = g_n and N⁺ = M + R, the chain logic, and the numerical interval
-chain, which remains an external Arb certificate.
+Mathlib's integration by parts). `lean/LiTail.lean` makes this explicit for g = sinh²(a/(4t²)) and N⁺ = M + R − (M(T₀) − R(T₀))
+with M, R the main and error terms of the zero-counting formula: `tail_explicit` gives Σ g(γ) ≤ (a²/16)·cosh²(a/(4T₀²))·J(T₀) with
+the same J(T₀) as the note and the certificate script (so E*(n) = 4·this with a = nc); all integrals are over [T₀, T], no improper
+integral is used. NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit zero count), the head
+lemmas 4 and 4′, the chain logic, and the numerical interval chain, which remains an external Arb certificate.
 The Lean δ-bound uses the Mathlib-provable constant 2x² (the note proves x²); the certificate passes unchanged with the corresponding
 c = 1 + 2·T₀⁻² (same N₀).
 
