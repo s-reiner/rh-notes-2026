@@ -45,9 +45,18 @@ mean value theorem is replaced by an integration by parts against sin(nθ) with 
 (`osc_integral_le`). `lean/LiSymm.lean` reduces the finite symmetric zero sum to ordinates γ > 0: for a finite family of zeros
 closed under ρ ↦ ρ̄ and ρ ↦ 1 − ρ (given as involutions of the index set, so multiplicities are respected), `partial_sum_ge`
 gives Σ Re[1 − (1 − 1/ρ)ⁿ] ≥ Σ_{0<γ≤T₀} 2(1 − cos nθ_γ) − 4 Σ_{γ>T₀} g_{nc}(γ), using 1 − 1/ρ = e^{iθ_γ} on the line
-(`online_w`) and Lemma 2 with the δ-bound off the line (`Forb_offline`). NOT formalized: the three analytic inputs (zero-sum
-formula and its symmetric exhaustion, verification height, explicit zero count), the final assembly with the counting function
-and the interval/chain logic, and the numerical interval chain, which remains an external Arb certificate.
+(`online_w`) and Lemma 2 with the δ-bound off the line (`Forb_offline`). `lean/LiMain.lean` assembles everything: with
+N(t) = #{i : 0 < Im ρᵢ ≤ t} and the hypothesis |N − M| ≤ R on [a, T] (resp. [T₁, T]), `li_positive_of_A1` and
+`li_positive_of_A2` state that if E*(n₂) < A₁(n₁, n₂) (resp. E*(n₂) < A′(n₁, n₂; T₁)), then the partial Li sum
+Σᵢ Re[1 − (1 − 1/ρᵢ)ⁿ] over the finite symmetric family is positive for every integer n ∈ [n₁, n₂]. These certificate
+inequalities are exactly the ones `lab/certify_li_threshold.py` checks in ball arithmetic for each of the 89 intervals, with
+c = 1 + 2·T₀⁻² (the script's default is c = 1 + T₀⁻²; both give the same N₀, see above).
+Still NOT formalized (stated as hypotheses or kept external): (I1) that λₙ is the limit of these partial sums over a symmetric
+exhaustion of the zero set; (I2) the verification height T₀ = 3·10¹² (the hypothesis `hline`); (I3) the explicit zero count
+(the hypothesis `hcount`); and the 89-interval numerical chain, which remains an external Arb certificate. The Lean files check
+with `lake env lean` against Mathlib for Lean 4.35.0, axioms propext/Classical.choice/Quot.sound only; they import each other
+in the order FloorBarrier, LiPointwise, LiAbel, LiTail, LiHead, LiOsc, LiSymm, LiMain (place them in a Mathlib project's
+source directory under the module prefix used in the `import` lines).
 The Lean δ-bound uses the Mathlib-provable constant 2x² (the note proves x²); the certificate passes unchanged with the corresponding
 c = 1 + 2·T₀⁻² (same N₀).
 
