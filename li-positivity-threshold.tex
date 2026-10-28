@@ -11,7 +11,7 @@
 
 \title{An explicit Li-positivity threshold from the numerical verification of the Riemann hypothesis}
 \author{S.~Reiner\thanks{Derivation, computation and review were carried out with the assistance of Claude (Anthropic), including an independent adversarial review by a separate model instance. The author takes responsibility for the content.}}
-\date{October 26, 2026 --- draft v2 (after one round of internal refereeing), not yet externally reviewed}
+\date{October 26, 2026 --- draft v3 (v2 after one round of internal refereeing; v3 adds the formalization remark), not yet externally reviewed}
 
 \begin{document}
 \maketitle
@@ -166,6 +166,10 @@ The threshold is $N_0\approx0.213\,T_0^2$, attained with $T_1=2T_0/3$. The quadr
 
 \begin{remark}[literature]
 Biane, Pitman and Yor \cite[p.~441]{BPY01} report, as a private communication of J.~Oesterl\'e, that $\lambda_n\ge0$ whenever all zeros with $|\Im\rho|<\sqrt n$ lie on the line; Voros \cite{Vor17} attributes to the same unpublished typescript the implication with $n\le T_0^2$. Lagarias \cite[Thm.~1.1, eq.~(1.17), and the remark preceding it]{Lag07} proves unconditionally $\lambda_n=\tfrac n2\log n+c_1n-\lambda_n(\sqrt n)+O(\sqrt n\log n)$, where $\lambda_n(T):=\sum_{|\Im\rho|<T}[1-(1-1/\rho)^n]$ is his incomplete Li coefficient (his eq.~(1.14); for $\zeta$ the dual representation is $\zeta$ itself), and deduces the asymptotic $\lambda_n=\tfrac n2\log n+c_1n+O(\sqrt n\log n)$ (the form it takes under the Riemann hypothesis) for $n\le T^2/(2\log^2T)$ from verification to height $T$, with non-explicit constants.\footnote{The journal version states $T^2/(2\log^2 T)$; the arXiv version (math/0404394v4) states $T^2/(4\log^2T)$.} Omar, Ouni and Mazhouda \cite{OOM11} stated a partial Li criterion with threshold $T^2$; the paper was retracted \cite{OOMretr}. The largest range in which positivity has been certified by direct computation of $\lambda_n$ is $n\le10^5$ (Johansson \cite{Joh15}, using Arb). An earlier attempt at an explicit threshold from a zero-free region, Brown \cite[Thm.~2]{Bro05}, is reported to be defective by Paloj\"arvi \cite{Pal18}. The present note gives, as far as we know, the first explicit and fully proved threshold derived from a verification height, i.e.\ the first explicit form of the implication attributed to Oesterl\'e, with constant $0.21$ in place of $1$; a treatment of $\int\tilde S(t)\,dt$ in Lemma~\ref{lem:head2} exploiting cancellation would likely recover the constant $1$.
+\end{remark}
+
+\begin{remark}[formalization]
+The analytic chain of this note has been checked in Lean~4 with Mathlib (files \texttt{lean/Li*.lean} in the repository accompanying this note, axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound} only): the pointwise Lemmas~\ref{lem:online} and~\ref{lem:offline} (with the Mathlib-provable constant $2x^2$ in the logarithm estimate, hence $c=1+2T_0^{-2}$, which gives the same $N_0$), Abel summation over a finite set of ordinates in place of the Stieltjes integrations by parts, the explicit bounds $E^*(n)$, $S^-(a)$ and $A'(n,T_1)$ of Lemmas~\ref{lem:tail}, \ref{lem:head1} and~\ref{lem:head2} (Bonnet's theorem replaced by an integration by parts against $\sin n\theta$ with the increasing weight $M'(t)(t^2+\tfrac14)$), the reduction of the symmetric zero sum to ordinates $\gamma>0$, and Lemma~\ref{lem:interval} in the form: for a finite family of zeros closed under $\rho\mapsto\bar\rho$ and $\rho\mapsto1-\rho$, with counting function $N$ satisfying $|N-M|\le R$, the certificate inequality for $[n_1,n_2]$ implies $\sum_\rho\Re[1-(1-1/\rho)^n]>0$ for every integer $n\in[n_1,n_2]$. Not formalized: (I1) (the passage from such finite partial sums to $\lambda_n$), (I2) and (I3) (which enter as hypotheses), and the $89$-interval numerical chain, which remains an external ball-arithmetic certificate.
 \end{remark}
 
 \begin{remark}[the 2026 zero-free half-plane]
