@@ -30,8 +30,12 @@ the author takes responsibility for the content. Corrections are welcome.**
 **Lean, Li theorem (partial).** `lean/LiPointwise.lean` formalizes the pointwise content of the Li note: the Jordan-type inequality
 1 − cos x ≥ 2x²/π², the angle bounds 1/γ − 1/(12γ³) ≤ θ(γ) ≤ 1/γ, the off-line quadruple identity and its bound 4 − 4cosh(n log‖w‖),
 the logarithm estimate |log(1+x) − x| ≤ 2x² (|x| ≤ 1/2), and the δ-bound |log‖1 − 1/ρ‖| ≤ (|1−2β| + 2γ⁻²)/(2γ²). All check with
-axioms propext/Classical.choice/Quot.sound. NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit
-zero count), the Stieltjes/Abel-summation lemmas (3, 4, 4′), and the numerical interval chain, which remains an external Arb certificate.
+axioms propext/Classical.choice/Quot.sound. `lean/LiAbel.lean` formalizes the Abel-summation step used in Lemmas 3, 4, 4′: for a finite
+set of ordinates in (T₀, T] and g of class C¹, Σ g(γ) = card·g(T) − ∫ g′·N(t) dt (`abel_sum`), and the tail inequality
+Σ g(γ) ≤ g(T₀)N⁺(T₀) + ∫ g·(N⁺)′ for g ≥ 0 decreasing and any C¹ majorant N⁺ of the counting function (`tail_sum_le`, via
+Mathlib's integration by parts). NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit
+zero count), the explicit evaluation of these integrals for g = g_n and N⁺ = M + R, the chain logic, and the numerical interval
+chain, which remains an external Arb certificate.
 The Lean δ-bound uses the Mathlib-provable constant 2x² (the note proves x²); the certificate passes unchanged with the corresponding
 c = 1 + 2·T₀⁻² (same N₀).
 
