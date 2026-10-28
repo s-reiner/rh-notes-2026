@@ -36,8 +36,11 @@ set of ordinates in (T₀, T] and g of class C¹, Σ g(γ) = card·g(T) − ∫ 
 Mathlib's integration by parts). `lean/LiTail.lean` makes this explicit for g = sinh²(a/(4t²)) and N⁺ = M + R − (M(T₀) − R(T₀))
 with M, R the main and error terms of the zero-counting formula: `tail_explicit` gives Σ g(γ) ≤ (a²/16)·cosh²(a/(4T₀²))·J(T₀) with
 the same J(T₀) as the note and the certificate script (so E*(n) = 4·this with a = nc); all integrals are over [T₀, T], no improper
-integral is used. NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit zero count), the head
-lemmas 4 and 4′, the chain logic, and the numerical interval chain, which remains an external Arb certificate.
+integral is used. `lean/LiHead.lean` is Lemma 4 (small-angle head bound): for ordinates in (a, T₀] whose counting function is
+minorised by M − R − (M(a) + R(a)), `head_sum_ge` gives Σ γ⁻² ≥ S⁻(a) with the same closed form S⁻ as the script (including the
+bound log log t ≤ log t for ∫ R t⁻³), and `head_bound` gives Σ 2(1 − cos nθ_γ) ≥ (4n²/π²)(1 − 1/(12a²))² S⁻(a) for n/π ≤ a.
+NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit zero count), the oscillatory head
+lemma 4′, the chain logic, and the numerical interval chain, which remains an external Arb certificate.
 The Lean δ-bound uses the Mathlib-provable constant 2x² (the note proves x²); the certificate passes unchanged with the corresponding
 c = 1 + 2·T₀⁻² (same N₀).
 
