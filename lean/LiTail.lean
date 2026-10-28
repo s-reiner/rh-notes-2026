@@ -17,10 +17,10 @@ noncomputable section
 def M (t : ℝ) : ℝ := t / (2 * π) * (Real.log (t / (2 * π)) - 1)
 /-- `M'`. -/
 def Mp (t : ℝ) : ℝ := Real.log (t / (2 * π)) / (2 * π)
-/-- Error term `R(t) = 0.1038 log t + 0.2573 log log t + 9.3675` (Hasanalizade–Shen–Wong). -/
-def R (t : ℝ) : ℝ := 0.1038 * Real.log t + 0.2573 * Real.log (Real.log t) + 9.3675
+/-- Error term `R(t) = 0.10076 log t + 0.24460 log log t + 8.08344` (Bellotti–Wong 2025, Thm 1.1). -/
+def R (t : ℝ) : ℝ := 0.10076 * Real.log t + 0.24460 * Real.log (Real.log t) + 8.08344
 /-- `R'`. -/
-def Rp (t : ℝ) : ℝ := 0.1038 / t + 0.2573 / (t * Real.log t)
+def Rp (t : ℝ) : ℝ := 0.10076 / t + 0.24460 / (t * Real.log t)
 /-- `g_a(t) = sinh²(a/(4t²))`. -/
 def gfun (a t : ℝ) : ℝ := Real.sinh (a / (4 * t ^ 2)) ^ 2
 /-- `g_a'`. -/
@@ -28,7 +28,7 @@ def gfun' (a t : ℝ) : ℝ :=
   2 * Real.sinh (a / (4 * t ^ 2)) * (Real.cosh (a / (4 * t ^ 2)) * (-(a / (2 * t ^ 3))))
 /-- The tail constant `J(T0)` of the note. -/
 def J (T0 : ℝ) : ℝ := 2 * R T0 / T0 ^ 4 + (Real.log (T0 / (2 * π)) / 3 + 1 / 9) / (2 * π * T0 ^ 3)
-  + 0.1038 / (4 * T0 ^ 4) + 0.2573 / (4 * T0 ^ 4 * Real.log T0)
+  + 0.10076 / (4 * T0 ^ 4) + 0.24460 / (4 * T0 ^ 4 * Real.log T0)
 /-- Integrand bound `h(t) = log(t/2π)/(2π t⁴) + K2/t⁵`. -/
 def hfun (K2 t : ℝ) : ℝ := Real.log (t / (2 * π)) / (2 * π * t ^ 4) + K2 / t ^ 5
 /-- An antiderivative of `hfun`. -/
@@ -49,7 +49,7 @@ theorem hasDerivAt_R (t : ℝ) (ht : 1 < t) : HasDerivAt R (Rp t) t := by
   have ht0 : t ≠ 0 := by linarith
   have hlog : Real.log t ≠ 0 := (Real.log_pos ht).ne'
   have h1 := Real.hasDerivAt_log ht0
-  have h := ((h1.const_mul 0.1038).add ((h1.log hlog).const_mul 0.2573)).add_const 9.3675
+  have h := ((h1.const_mul 0.10076).add ((h1.log hlog).const_mul 0.24460)).add_const 8.08344
   convert h using 1
   · funext x; simp [R]
   · simp only [Rp]; field_simp <;> ring
@@ -175,7 +175,7 @@ theorem integral_hfun_le (K2 T0 T : ℝ) (hK2 : 0 ≤ K2) (hT0 : 2 * π ≤ T0) 
 /-- Pointwise bound for the integrand. -/
 theorem integrand_le (a T0 t : ℝ) (ha : 0 ≤ a) (hT0 : 2 * π ≤ T0) (ht : T0 ≤ t) :
     gfun a t * (Mp t + Rp t) ≤
-      a ^ 2 / 16 * Real.cosh (a / (4 * T0 ^ 2)) ^ 2 * hfun (0.1038 + 0.2573 / Real.log T0) t := by
+      a ^ 2 / 16 * Real.cosh (a / (4 * T0 ^ 2)) ^ 2 * hfun (0.10076 + 0.24460 / Real.log T0) t := by
   have hpi := Real.pi_gt_three
   have hT0pos : 0 < T0 := by linarith
   have ht0 : 0 < t := by linarith
@@ -193,12 +193,12 @@ theorem integrand_le (a T0 t : ℝ) (ha : 0 ≤ a) (hT0 : 2 * π ≤ T0) (ht : T
   have hne2 : Real.log t ≠ 0 := hlt.ne'
   have hne3 : Real.log T0 ≠ 0 := hlogT0.ne'
   have hne4 : π ≠ 0 := Real.pi_pos.ne'
-  have key : hfun (0.1038 + 0.2573 / Real.log T0) t - (Mp t + Rp t) / t ^ 4
-      = 0.2573 / t ^ 5 * (1 / Real.log T0 - 1 / Real.log t) := by
+  have key : hfun (0.10076 + 0.24460 / Real.log T0) t - (Mp t + Rp t) / t ^ 4
+      = 0.24460 / t ^ 5 * (1 / Real.log T0 - 1 / Real.log t) := by
     simp only [hfun, Mp, Rp]; field_simp; ring
   have hinv : 1 / Real.log t ≤ 1 / Real.log T0 := one_div_le_one_div_of_le hlogT0 hlogt
-  have hkey : (Mp t + Rp t) / t ^ 4 ≤ hfun (0.1038 + 0.2573 / Real.log T0) t := by
-    have : 0 ≤ 0.2573 / t ^ 5 * (1 / Real.log T0 - 1 / Real.log t) :=
+  have hkey : (Mp t + Rp t) / t ^ 4 ≤ hfun (0.10076 + 0.24460 / Real.log T0) t := by
+    have : 0 ≤ 0.24460 / t ^ 5 * (1 / Real.log T0 - 1 / Real.log t) :=
       mul_nonneg (by positivity) (by linarith)
     linarith
   have hC : 0 ≤ Real.cosh (a / (4 * T0 ^ 2)) ^ 2 := by positivity
@@ -207,7 +207,7 @@ theorem integrand_le (a T0 t : ℝ) (ha : 0 ≤ a) (hT0 : 2 * π ≤ T0) (ht : T
         mul_le_mul_of_nonneg_right hg hMR
     _ = a ^ 2 / 16 * Real.cosh (a / (4 * T0 ^ 2)) ^ 2 * ((Mp t + Rp t) / t ^ 4) := by
         field_simp; ring
-    _ ≤ a ^ 2 / 16 * Real.cosh (a / (4 * T0 ^ 2)) ^ 2 * hfun (0.1038 + 0.2573 / Real.log T0) t := by
+    _ ≤ a ^ 2 / 16 * Real.cosh (a / (4 * T0 ^ 2)) ^ 2 * hfun (0.10076 + 0.24460 / Real.log T0) t := by
         apply mul_le_mul_of_nonneg_left hkey; positivity
 
 /-- Explicit tail bound: `Σ g_a(γ) ≤ (a²/16) cosh²(a/(4T0²)) J(T0)`. -/
@@ -226,7 +226,7 @@ theorem tail_explicit {ι : Type*} (s : Finset ι) (γ : ι → ℝ) (a T0 T : �
   have hR : 0 ≤ R T0 := by simp only [R]; linarith
   set C := Real.cosh (a / (4 * T0 ^ 2)) ^ 2 with hCdef
   have hC : 0 ≤ C := by positivity
-  set K2 := 0.1038 + 0.2573 / Real.log T0 with hK2def
+  set K2 := 0.10076 + 0.24460 / Real.log T0 with hK2def
   have hK2 : 0 ≤ K2 := by positivity
   -- Abel summation + integration by parts
   have hA := tail_sum_le s γ T0 T hT hγ (gfun a) (gfun' a)

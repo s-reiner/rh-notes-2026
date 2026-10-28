@@ -1,5 +1,5 @@
 """
-Generate lean/FloorBarrier/FloorBarrier/LiChain.lean: the 89-interval certificate chain of
+Generate lean/FloorBarrier/FloorBarrier/LiChain.lean: the certificate chain of
 lab/certify_li_threshold.py, each interval checked in Lean from the enclosures in LiCert.lean.
 
 Every bound emitted here is first re-derived in exact rational arithmetic (Fractions), mirroring the
@@ -38,10 +38,10 @@ L2 = (F(C['L2lo']), F(C['L2hi'])); L3 = (F(C['L3lo']), F(C['L3hi'])); L5 = (F(C[
 LP = (F(C['LPlo']), F(C['LPhi'])); LL0 = (F(C['LL0lo']), F(C['LL0hi']))
 Wm = F(C['Wm']); Wp = F(C['Wp'])
 Pm = F('3.14159265358979323846'); Pp = F('3.14159265358979323847')
-JP = F(53493920955173805339826419034, 10**66)
-JP_LEAN = '(53493920955173805339826419034 / 10 ^ 66)'
+JP = F(53493920955138879903839081324, 10**66)
+JP_LEAN = '(53493920955138879903839081324 / 10 ^ 66)'
 T0 = F(3 * 10**12); c = 1 + F(2) / T0**2
-A1c, A2c = F('0.1038'), F('0.2573')
+A1c, A2c = F('0.10076'), F('0.24460')
 
 def lin(co, side):
     """bound for a2*log2 + a3*log3 + a5*log5 + ap*logpi; side 0 = lower, 1 = upper"""
@@ -61,7 +61,7 @@ def fac235(n):
 
 lT0 = (lin((12, 1, 12, 0), 0), lin((12, 1, 12, 0), 1))
 L0 = (lin((11, 1, 12, -1), 0), lin((11, 1, 12, -1), 1))
-R0hi = A1c * lT0[1] + A2c * LL0[1] + F('9.3675')
+R0hi = A1c * lT0[1] + A2c * LL0[1] + F('8.08344')
 
 ATOMS = ("  obtain ⟨a, b⟩ := log2_b; obtain ⟨c, d⟩ := log3_b; obtain ⟨e, f⟩ := log5_b\n"
          "  obtain ⟨g, h⟩ := logpi_b; obtain ⟨w1, w2⟩ := inv2pi_b\n")
@@ -143,8 +143,8 @@ def smooth_above(x):
             if best is None or v < best: best = v
     return best
 
-def FR(logt, t):  # FR(t) = -(0.3611)(2 log t + 1)/(4 t^2) - 9.3675/(2 t^2)
-    return -(A1c + A2c) * (2 * logt + 1) / (4 * t**2) - F('9.3675') / (2 * t**2)
+def FR(logt, t):  # FR(t) = -(0.34536)(2 log t + 1)/(4 t^2) - 8.08344/(2 t^2)
+    return -(A1c + A2c) * (2 * logt + 1) / (4 * t**2) - F('8.08344') / (2 * t**2)
 
 def gen_A1(k, n1, n2):
     a = smooth_above(max(F(n2) / Pm, F(60)))
@@ -157,8 +157,8 @@ def gen_A1(k, n1, n2):
     Glo = F(Glo.numerator * 999999, Glo.denominator * 1000000)
     Glo = dn(Glo, 40)
     # rest = -R T0/T0^2 - R a/a^2 - 2 (FR T0 - FR a), crude loglog <= log - 1
-    R0c = A1c * lT0[1] + A2c * (lT0[1] - 1) + F('9.3675')
-    Rac = A1c * la[1] + A2c * (la[1] - 1) + F('9.3675')
+    R0c = A1c * lT0[1] + A2c * (lT0[1] - 1) + F('8.08344')
+    Rac = A1c * la[1] + A2c * (la[1] - 1) + F('8.08344')
     rest = -R0c / T0**2 - Rac / a**2 - 2 * (FR(lT0[0], T0) - FR(la[1], a))
     S = Wm * Glo + rest
     assert S > 0
@@ -224,7 +224,7 @@ def gen_A2(k, n1, n2, T1):
     B = 2 * T0 * (L0[0] - 1) - 2 * T1 * (L1[1] - 1) - 4 * L0[1] * (T0**2 + F(1, 4)) / n1
     Bm = dn(B)
     assert Bm > 0
-    R1hi = A1c * t['lT1'][1] + A2c * t['LL1'][1] + F('9.3675')
+    R1hi = A1c * t['lT1'][1] + A2c * t['LL1'][1] + F('8.08344')
     rhs_m = Wm * Bm - 4 * R0hi - 4 * R1hi - 2 * n2 * R0hi * (1 / F(T1) - 1 / T0)
     RHS = dn(rhs_m) - F(1, 10**12)
     u = n2 * c / (4 * T0**2); U = F(math.ceil(u * 10**30), 10**30)
@@ -232,7 +232,7 @@ def gen_A2(k, n1, n2, T1):
     chp = up((expsum_up(U) + expsum_up(-U)) / 2)
     Eup = F(n2)**2 * c**2 / 4 * chp**2 * JP
     assert Eup < RHS, (k, n1, n2, float(RHS - Eup))
-    R1str = f"0.1038 * ({p} * {dec(L2[1])} + {q} * {dec(L3[1])} + {r} * {dec(L5[1])}) + 0.2573 * {dec(t['LL1'][1])} + 9.3675"
+    R1str = f"0.10076 * ({p} * {dec(L2[1])} + {q} * {dec(L3[1])} + {r} * {dec(L5[1])}) + 0.24460 * {dec(t['LL1'][1])} + 8.08344"
     Ustr = f"({U.numerator} / {U.denominator} : ℝ)"
     emit(f'''
 /-! ### Interval {k}: `[{n1}, {n2}]`, oscillatory, `T1 = {T1}` -/
@@ -252,7 +252,7 @@ theorem rhs_{k} : {lit(RHS)} ≤ 2 * (M T0c - M ({T1} : ℝ) - 2 * R T0c - 2 * R
       - 4 * L0 * (T0c ^ 2 + 1 / 4) / (({n1} : ℕ) : ℝ) := by
     push_cast; linarith
   have hP := mul_le_mul w1 hB (by norm_num) (by positivity)
-  have hR0 : R T0c ≤ 0.1038 * ({dec(L3[1])} + 12 * {dec(L2[1])} + 12 * {dec(L5[1])}) + 0.2573 * {dec(LL0[1])} + 9.3675 := by
+  have hR0 : R T0c ≤ 0.10076 * ({dec(L3[1])} + 12 * {dec(L2[1])} + 12 * {dec(L5[1])}) + 0.24460 * {dec(LL0[1])} + 8.08344 := by
     unfold R; linarith
   have hR1 : R ({T1} : ℝ) ≤ {R1str} := by
     unfold R; linarith
@@ -295,7 +295,7 @@ for line in open(os.path.join(HERE, 'chain.out')):
     if len(sp) > 4 and sp[0].isdigit():
         if sp[2] == 'A1': rows.append((int(sp[0]), int(sp[1]), 'A1', None))
         else: rows.append((int(sp[0]), int(sp[1]), 'A2', T1MAP[sp[3]]))
-assert len(rows) == 89 and rows[0][0] == 1
+assert len(rows) >= 1 and rows[0][0] == 1
 for x, y in zip(rows, rows[1:]): assert x[1] == y[0]
 N0 = rows[-1][1]
 
@@ -351,7 +351,7 @@ fin.append(f"""
 /-! ## The chain -/
 
 /-- **Li positivity for `1 ≤ n ≤ N0 = {N0}`**, with every certificate inequality of the
-89-interval chain checked in Lean.  Hypotheses: a finite family of zeros closed under `ρ ↦ ρ̄`,
+{len(rows)}-interval chain checked in Lean.  Hypotheses: a finite family of zeros closed under `ρ ↦ ρ̄`,
 `ρ ↦ 1 - ρ`, in the strip, with `|Im ρ| ≥ 2` and heights `≤ T`; all zeros of height `≤ T0 = 3·10¹²` on the
 critical line (input I2); and `|N(t) - M(t)| ≤ R(t)` on `[60, T]` (input I3).  The passage from finite
 families to `λₙ` (input I1) is not formalized. -/
@@ -366,7 +366,7 @@ for k, inf in enumerate(infos, 1):
 fin.append(f"  exact g{len(infos)}\n")
 
 header = f'''/-
-The 89-interval certificate chain of `lab/certify_li_threshold.py`, checked in Lean.
+The {len(rows)}-interval certificate chain of `lab/certify_li_threshold.py`, checked in Lean.
 GENERATED by `lab/lean_stage3/gen_chain.py` — do not edit by hand.
 Each interval `[n₁, n₂]` gets a lemma `cert_k`: the certificate inequality of `li_positive_of_A1`
 (head sum, Lemma 4, with a 5-smooth `a ≥ max(n₂/π, 60)`) or `li_positive_of_A2` (oscillatory, Lemma 4′,

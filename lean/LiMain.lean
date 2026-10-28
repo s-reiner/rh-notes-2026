@@ -79,8 +79,8 @@ theorem J_nonneg (T0 : ℝ) (hT0 : 2 * π ≤ T0) : 0 ≤ J T0 := by
   have h1 : 0 ≤ 2 * R T0 / T0 ^ 4 := by positivity
   have h2 : 0 ≤ (Real.log (T0 / (2 * π)) / 3 + 1 / 9) / (2 * π * T0 ^ 3) :=
     div_nonneg (by linarith) (by positivity)
-  have h3 : 0 ≤ 0.1038 / (4 * T0 ^ 4) := by positivity
-  have h4 : 0 ≤ 0.2573 / (4 * T0 ^ 4 * Real.log T0) := by positivity
+  have h3 : 0 ≤ 0.10076 / (4 * T0 ^ 4) := by positivity
+  have h4 : 0 ≤ 0.24460 / (4 * T0 ^ 4 * Real.log T0) := by positivity
   linarith
 
 theorem Estar_nonneg (n : ℕ) (c T0 : ℝ) (hT0 : 2 * π ≤ T0) : 0 ≤ Estar n c T0 := by

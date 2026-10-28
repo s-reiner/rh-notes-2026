@@ -28,15 +28,15 @@ c=1+F(2)/T0**2
 L0=(L3[0]+11*L2[0]+12*L5[0]-LP[1], L3[1]+11*L2[1]+12*L5[1]-LP[0])
 L1=(12*L2[0]+12*L5[0]-LP[1], 12*L2[1]+12*L5[1]-LP[0])
 Wm=dn(1/(2*Pp)); Wp=up(1/(2*Pm))
-R0p=F('0.1038')*lT0[1]+F('0.2573')*LL0[1]+F('9.3675')
-R1p=F('0.1038')*lT1[1]+F('0.2573')*LL1[1]+F('9.3675')
+R0p=F('0.10076')*lT0[1]+F('0.24460')*LL0[1]+F('8.08344')
+R1p=F('0.10076')*lT1[1]+F('0.24460')*LL1[1]+F('8.08344')
 q=(T0**2+F(1,4))/n1
 Bm=dn(2*T0*(L0[0]-1)-2*T1*(L1[1]-1)-4*L0[1]*q - W)
 rhs=dn(Wm*Bm - 4*R0p - 4*R1p - 2*n2*R0p*(1/T1-1/T0) - F(1,10**6))
 u=n2*c/(4*T0**2); U=F(math.ceil(u*10**30),10**30)
 def expup(x,n=12): return sum(x**m/math.factorial(m) for m in range(n))+abs(x)**n*F(n+1,math.factorial(n)*n)
 chp=up((expup(U)+expup(-U))/2)
-Jp=(lambda v: F(math.ceil(v*10**66),10**66))(2*R0p/T0**4+(L0[1]/3+F(1,9))*Wp/T0**3+F('0.1038')/(4*T0**4)+F('0.2573')/(4*T0**4*lT0[0]))
+Jp=(lambda v: F(math.ceil(v*10**66),10**66))(2*R0p/T0**4+(L0[1]/3+F(1,9))*Wp/T0**3+F('0.10076')/(4*T0**4)+F('0.24460')/(4*T0**4*lT0[0]))
 E=F(n2)**2*c**2/4*chp**2*Jp
 print('margin',float(rhs-E))
 C=dict(L2lo=s(L2[0]),L2hi=s(L2[1]),L3lo=s(L3[0]),L3hi=s(L3[1]),L5lo=s(L5[0]),L5hi=s(L5[1]),
@@ -44,7 +44,7 @@ C=dict(L2lo=s(L2[0]),L2hi=s(L2[1]),L3lo=s(L3[0]),L3hi=s(L3[1]),L5lo=s(L5[0]),L5h
  r0lo=s(r0[0]),r0hi=s(r0[1]),r1lo=s(r1[0]),r1hi=s(r1[1]),Bm=s(Bm),rhs=s(rhs),U=str(U.numerator)+'/'+str(U.denominator),
  chp=s(chp),Jp=str(math.ceil(Jp*10**66))+'/10^66',n1=n1,n2=n2,Wm=s(Wm),Wp=s(Wp))
 import json; json.dump(C,open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'consts.json'),'w'),indent=1); print(json.dumps(C,indent=1))
-Jc=2*(F('0.1038')*F('28.73')+F('0.2573')*LL0[1]+F('9.3675'))/T0**4+((L3[1]+11*L2[1]+12*L5[1]-LP[0])/3+F(1,9))*Wp/T0**3+F('0.1038')/(4*T0**4)+F('0.2573')/(4*T0**4*F('28.729'))
+Jc=2*(F('0.10076')*F('28.73')+F('0.24460')*LL0[1]+F('8.08344'))/T0**4+((L3[1]+11*L2[1]+12*L5[1]-LP[0])/3+F(1,9))*Wp/T0**3+F('0.10076')/(4*T0**4)+F('0.24460')/(4*T0**4*F('28.729'))
 Jp2=F(math.ceil(Jc*10**66)+1,10**66)
 print('Jp2',math.ceil(Jc*10**66)+1)
 E2=F(n2)**2*c**2/4*chp**2*Jp2

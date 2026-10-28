@@ -53,15 +53,15 @@ theorem head_sum_ge_raw {ι : Type*} (s : Finset ι) (γ : ι → ℝ) (a T : �
 
 /-- `Fm' = 2M/t³`. -/
 def Fm (t : ℝ) : ℝ := -(Real.log (t / (2 * π))) / (π * t)
-/-- `FR' = (0.3611 log t + 9.3675)/t³ ≥ R/t³`. -/
-def FR (t : ℝ) : ℝ := -(0.1038 + 0.2573) * (2 * Real.log t + 1) / (4 * t ^ 2) - 9.3675 / (2 * t ^ 2)
+/-- `FR' = (0.34536 log t + 8.08344)/t³ ≥ R/t³`. -/
+def FR (t : ℝ) : ℝ := -(0.10076 + 0.24460) * (2 * Real.log t + 1) / (4 * t ^ 2) - 8.08344 / (2 * t ^ 2)
 /-- `S⁻(a)` of the note. -/
 def Sminus (a T0 : ℝ) : ℝ := (M T0 - R T0) / T0 ^ 2 - (M a + R a) / a ^ 2
   + (Real.log (a / (2 * π)) / a - Real.log (T0 / (2 * π)) / T0) / π - 2 * (FR T0 - FR a)
 /-- Combined antiderivative for the integral in Lemma 4, `K = M a + R a`. -/
 def PhiH (K t : ℝ) : ℝ := -Fm t + 2 * FR t - K / t ^ 2
 def PhiH' (K t : ℝ) : ℝ :=
-  -(2 * M t / t ^ 3) + 2 * (((0.1038 + 0.2573) * Real.log t + 9.3675) / t ^ 3) + 2 * K / t ^ 3
+  -(2 * M t / t ^ 3) + 2 * (((0.10076 + 0.24460) * Real.log t + 8.08344) / t ^ 3) + 2 * K / t ^ 3
 
 theorem hasDerivAt_Fm (t : ℝ) (ht : 0 < t) : HasDerivAt Fm (2 * M t / t ^ 3) t := by
   have hne : t / (2 * π) ≠ 0 := by positivity
@@ -73,16 +73,16 @@ theorem hasDerivAt_Fm (t : ℝ) (ht : 0 < t) : HasDerivAt Fm (2 * M t / t ^ 3) t
   · simp only [M, Pi.neg_apply]; field_simp <;> ring
 
 theorem hasDerivAt_FR (t : ℝ) (ht : 0 < t) :
-    HasDerivAt FR (((0.1038 + 0.2573) * Real.log t + 9.3675) / t ^ 3) t := by
+    HasDerivAt FR (((0.10076 + 0.24460) * Real.log t + 8.08344) / t ^ 3) t := by
   have ht0 : t ≠ 0 := ht.ne'
   have h1 := ((Real.hasDerivAt_log ht0).const_mul (2 : ℝ)).add_const (1 : ℝ)
-  have h2 := h1.const_mul (-(0.1038 + 0.2573) : ℝ)
+  have h2 := h1.const_mul (-(0.10076 + 0.24460) : ℝ)
   have hB : HasDerivAt (fun t : ℝ => 4 * t ^ 2) (4 * (2 * t)) t := by
     have := (hasDerivAt_pow 2 t).const_mul (4 : ℝ); convert this using 1 <;> push_cast <;> ring
   have h3 := h2.div hB (by positivity)
   have hC : HasDerivAt (fun t : ℝ => 2 * t ^ 2) (2 * (2 * t)) t := by
     have := (hasDerivAt_pow 2 t).const_mul (2 : ℝ); convert this using 1 <;> push_cast <;> ring
-  have h4 := (hC.inv (by positivity)).const_mul (9.3675 : ℝ)
+  have h4 := (hC.inv (by positivity)).const_mul (8.08344 : ℝ)
   have h := h3.sub h4
   convert h using 1
   · funext x; simp [FR, div_eq_mul_inv]
@@ -101,7 +101,7 @@ theorem hasDerivAt_PhiH (K t : ℝ) (ht : 0 < t) : HasDerivAt (PhiH K) (PhiH' K 
   · funext x; simp [PhiH]
   · simp only [PhiH']; ring
 
-theorem R_le (t : ℝ) (ht : 1 < t) : R t ≤ (0.1038 + 0.2573) * Real.log t + 9.3675 := by
+theorem R_le (t : ℝ) (ht : 1 < t) : R t ≤ (0.10076 + 0.24460) * Real.log t + 8.08344 := by
   have hlt : 0 < Real.log t := Real.log_pos ht
   have := Real.log_le_sub_one_of_pos hlt
   simp only [R]; linarith
@@ -153,9 +153,9 @@ theorem head_sum_ge {ι : Type*} (s : Finset ι) (γ : ι → ℝ) (a T0 : ℝ) 
     have hR := R_le t ht1
     have hne : t ≠ 0 := ht0.ne'
     have e : PhiH' (M a + R a) t - -2 / t ^ 3 * (M t - R t - (M a + R a))
-        = 2 * ((0.1038 + 0.2573) * Real.log t + 9.3675 - R t) / t ^ 3 := by
+        = 2 * ((0.10076 + 0.24460) * Real.log t + 8.08344 - R t) / t ^ 3 := by
       simp only [PhiH']; field_simp <;> ring
-    have : 0 ≤ 2 * ((0.1038 + 0.2573) * Real.log t + 9.3675 - R t) / t ^ 3 :=
+    have : 0 ≤ 2 * ((0.10076 + 0.24460) * Real.log t + 8.08344 - R t) / t ^ 3 :=
       div_nonneg (by linarith) (by positivity)
     linarith
   have hmono : ∫ t in a..T0, -2 / t ^ 3 * (M t - R t - (M a + R a)) ≤ ∫ t in a..T0, PhiH' (M a + R a) t :=
