@@ -9,10 +9,12 @@ the author takes responsibility for the content. Corrections are welcome.**
    Platt–Trudgian verification height 3·10^12, and the explicit zero count of Hasanalizade–Shen–Wong. Certified in Arb ball arithmetic:
    `lab/certify_li_threshold.py`, output `lab/2026-10-26_certify_li_threshold_v3_output.txt`. Prior rigorous record by direct computation: n ≤ 10^5.
 
-2. `floor-class-barrier.pdf` — *A floor-class barrier in the cubic-theta zero-free half-plane argument.*
-   Within Liu's exponent comparison system (arXiv:2610.12234), no improvement of the zero-witness counts can push the boundary below
-   167/192 = 0.8698 (13/15 with an ideal detector floor); the inequality is machine-checked in Lean 4 + Mathlib (`lean/FloorBarrier.lean`,
-   axioms propext / Classical.choice / Quot.sound). Sensitivity scripts in `lab/directionG/`.
+2. `floor-class-barrier.pdf` — *A Lean-checked, counts-independent form of tomoto0's floor-class barrier.*
+   **Priority note:** the barrier itself (trivially counted rows near the critical line force the boundary above 13/15, and the detector
+   floor alone gives ≥ 0.86979) is due to tomoto0, `reports/barrier_analysis.md` (2026-10-07, in Japanese) in
+   github.com/tomoto0/quasi-riemann-hypothesis-7-8-verification; our literature search missed it. What this note adds: the statement inside
+   Liu's comparison system (free M, arbitrary witness counts), the exact rational 167/192 as a convex combination of three affine constraints,
+   a Lean 4 + Mathlib check of that inequality (`lean/FloorBarrier.lean`), and the absolute-value argument of §3. Sensitivity scripts in `lab/directionG/`.
 
 3. `growth-right-of-78.pdf` — *Growth of ζ and of Dirichlet L-functions to the right of 7/8.*
    Conditional on the Lean-verified half-plane Re s > 7/8: μ(σ) = 0 for σ ≥ 7/8 (previously known only for σ ≥ 1) and
