@@ -39,8 +39,12 @@ the same J(T₀) as the note and the certificate script (so E*(n) = 4·this with
 integral is used. `lean/LiHead.lean` is Lemma 4 (small-angle head bound): for ordinates in (a, T₀] whose counting function is
 minorised by M − R − (M(a) + R(a)), `head_sum_ge` gives Σ γ⁻² ≥ S⁻(a) with the same closed form S⁻ as the script (including the
 bound log log t ≤ log t for ∫ R t⁻³), and `head_bound` gives Σ 2(1 − cos nθ_γ) ≥ (4n²/π²)(1 − 1/(12a²))² S⁻(a) for n/π ≤ a.
-NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit zero count), the oscillatory head
-lemma 4′, the chain logic, and the numerical interval chain, which remains an external Arb certificate.
+`lean/LiOsc.lean` is Lemma 4′ (oscillatory head bound): `osc_head_bound` gives Σ 2(1 − cos nθ_γ) ≥ A′(n, T₁) for ordinates in
+(T₁, T₀] with counting function M + S̃ − (M(T₁) + S̃(T₁)), |S̃| ≤ R, exactly the expression A′ of the note and the script; Bonnet's
+mean value theorem is replaced by an integration by parts against sin(nθ) with the increasing weight M′(t)(t² + 1/4)
+(`osc_integral_le`). NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit zero count),
+the reduction of the symmetric zero sum to ordinates γ > 0 (on-line pairs and off-line quadruples), the chain logic, and the
+numerical interval chain, which remains an external Arb certificate.
 The Lean δ-bound uses the Mathlib-provable constant 2x² (the note proves x²); the certificate passes unchanged with the corresponding
 c = 1 + 2·T₀⁻² (same N₀).
 
