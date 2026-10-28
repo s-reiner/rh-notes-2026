@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}[proposition]{Remark}
+\renewcommand{\Re}{\operatorname{Re}}
+\title{A floor-class barrier in the cubic-theta zero-free half-plane argument}
+\author{S.~Reiner\thanks{The exponent bookkeeping was carried out with the assistance of Claude (Anthropic), by two independent model instances reading the manuscripts, and cross-checked against Liu's formalized constants. The author takes responsibility for the content.}}
+\date{October 27, 2026 --- draft v5 (Proposition~1 machine-checked; \S3 refereed), not yet externally reviewed}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OpenAI's cubic-theta argument gives a uniform zero-free half-plane $\Re s>7/8$ for all finite-order Hecke $L$-functions over $\mathbb Q(\sqrt{-3})$ and all Dirichlet $L$-functions; Liu optimised its free parameters and proved that $B_{\mathrm{new}}=0.874957\ldots$ is the infimum of the resulting exponent comparison system. We point out that within the same comparison system no improvement of the zero-witness counts, however large, can push the boundary below $167/192=0.8697\ldots$, and below $13/15$ even with an ideal detector floor. The barrier is set by the \emph{floor class}: Poisson rows for which the class definition selects no zero witness (essentially, no zero with real part above the detector floor $a_0=51/100$), and which are therefore counted trivially. The obstruction is a convex combination of three affine constraints, in the same way as Liu's algebraic lower bound. We show that the obstruction cannot be removed by any estimate passing through absolute values of the row terms, and state the signed cancellation that would be required.
+\end{abstract}
+
+\section{Liu's comparison system}
+
+We use the notation of Liu \cite{Liu26}, who follows the 30 September 2026 manuscript \cite{Ope26}. The argument compares a probe $J_\eta(Z)$ with a Mellin signal containing $1/L^S(s,\eta)$; a direct bound $|J_\eta|\ll Z^{C(\sigma_0)+\omega}$ and a comparison bound $|J_\eta-f_\eta|\ll Z^{C(\beta_*)-\sigma}$ contradict $\beta_*>\sigma_0$ \cite[Prop.~2.1]{Ope26}. The free length parameters are $b=l_y-l_x\ge0$, the slot length $\ell$, and $M=l_x+l_y$, with $h:=1-l_x+\ell$. The direct bound has exponent $l_x/2+b/12$ and the principal Mellin exponent is $C_b(s)=s-(4+b)/6$; with $M+\ell=1$ this gives the boundary $B=11/12-\ell/4$ \cite[(30.2)]{Liu26}, and $\ell=1/6$ is the $7/8$ of \cite{Ope26}.
+
+Liu's Proposition~25.1 isolates three affine constraints that force $B\ge B_{\mathrm{alg}}=(1507-2\sqrt{921})/1653$:
+\begin{equation}\label{eq:L}
+B\ge L_0:=\tfrac56+\tfrac M{12}-\tfrac\ell6,\qquad B\ge L_K:=\tfrac13+\tfrac{7M}{12}+\tfrac\ell3,
+\end{equation}
+from the two branches of the direct (reflected-energy) estimate, and
+\begin{equation}\label{eq:H}
+B\ge H_c:=1+\delta_c-(1+\delta_c)\tfrac M2+\delta_c\ell,\qquad \delta_c=\tfrac{49-\sqrt{921}}{48},
+\end{equation}
+from the critical zero class, where the count exponent is $R^*=2/3$. The general nonprincipal-row constraint behind \eqref{eq:H} is, from \cite[(18.4)]{Liu26} with $a=(1+\delta)/2$, $d=h$, $l_y=M-l_x$, $l_x=1+\ell-h$ (his (34.8) is the case $x=1/2$),
+\begin{equation}\label{eq:E}
+E_B(h;\delta,x)=H(\delta,x)-B+h\bigl(R(\delta,x)-\tfrac23\bigr)\le0,\qquad H(\delta,x)=1+\delta-(1+\delta)\tfrac M2+\delta\ell\bigl(\tfrac12+x\bigr),
+\end{equation}
+for every zero class $\delta=2a-1\in[\delta_0,5/6]$ and amplitude $x\in[0,1/2]$, with $R(\delta,x)$ the proven row-count exponent and $\delta_0=1/50$ the detector floor ($a_0=51/100$). Since $b=M-2(1+\ell-h)$, the constraint $b\ge0$ reads $h\ge1-M/2+\ell$; Liu's admissible set has the strict forms $b>0$ and $l_x>\ell$ (hence $h<1$), of which we use the closures.
+
+\section{The floor class}
+
+Rows in the lowest zero class $a=a_0$ are bounded with the trivial count $R=1$ and amplitude $\bar g\le\delta_0/2$, i.e.\ $x\le1/2$ \cite[Lemma~19.2(4)]{Liu26}; since \eqref{eq:E} is increasing in $x$, the binding case is $x=1/2$ (cf.\ the display $E_{B,\mathrm{floor}}$ in the proof of Lemma~34.3 of \cite{Liu26}), giving
+\begin{equation}\label{eq:F}
+B\ \ge\ F:=1+\delta_0-(1+\delta_0)\tfrac M2+\delta_0\ell+\tfrac h3 .
+\end{equation}
+This constraint does not involve any zero-witness count, so it is unaffected by any improvement of the estimates that produce $R(\delta,x)$ for $\delta>\delta_0$. Liu already notes, in the proof of his Lemma~34.3, that the trivial-count comparison for a raised floor requires $B\ge H_{\xi}+h/3$; what is added here is only the convex combination with the direct constraints, which makes the resulting bound independent of every count and of $(M,\ell,h)$. What is held fixed below is exactly: (i) the direct majorant and principal exponent of \cite[(22.1), (22.4)]{Liu26}, which give \eqref{eq:L}; (ii) the row exponent \cite[(18.4)]{Liu26} with the trivial count for the class $a_0$, which gives \eqref{eq:F}; (iii) $b\ge0$. Sharpening any of these (for instance the reflected-energy estimate behind (22.4), or the bound for the $a_0$ class by a means other than its count) changes the system.
+
+\begin{proposition}\label{prop:barrier}
+Let $M,\ell,h,B$ be real numbers satisfying \eqref{eq:L}, \eqref{eq:F} and $h\ge1-M/2+\ell$. Then
+\[
+B\ \ge\ \frac{13+18\delta_0}{3(5+6\delta_0)} ,
+\]
+which equals $167/192$ for $\delta_0=1/50$ and tends to $13/15$ as $\delta_0\to0$. Equality holds at $h=1-M/2+\ell$ (i.e.\ $b=0$), $\ell=(1-2\delta_0)/(5+6\delta_0)$, $M=1-\ell$ ; for $\delta_0=1/50$ this is $M=13/16$, $\ell=3/16$, $h=25/32$.
+\end{proposition}
+\begin{proof}
+Since $F$ is increasing in $h$, \eqref{eq:F} with $h\ge1-M/2+\ell$ gives $B\ge F_{\min}:=1+\delta_0-(1+\delta_0)M/2+\delta_0\ell+(1-M/2+\ell)/3$. The positive weights
+\[
+w_0=\frac{2(5+9\delta_0)}{3(5+6\delta_0)},\qquad w_K=\frac{2}{3(5+6\delta_0)},\qquad w_F=\frac1{5+6\delta_0}
+\]
+sum to one, and in $w_0L_0+w_KL_K+w_FF_{\min}$ the coefficients of $M$ and of $\ell$ vanish identically; the constant that remains is $(13+18\delta_0)/(3(5+6\delta_0))$. Hence $B\ge\max\{L_0,L_K,F_{\min}\}\ge w_0L_0+w_KL_K+w_FF_{\min}$ gives the bound. For $\delta_0=1/50$ the weights are $259/384$, $25/192$, $25/128$ and the constant is $167/192$. Equality is checked by substitution. The inequality and its equality case are formalized in Lean~4 with Mathlib (file \texttt{FloorBarrier.lean} accompanying this note; theorems \texttt{barrier\_general} and \texttt{barrier\_167\_192}, depending only on the axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}). At the equality point $M+\ell=1$ and $b=0$, so the barrier is simply $L_0=11/12-\ell/4$ against $F=2/3+\delta_0/2+(1+3\delta_0/2)\ell$ on Liu's balanced line; $L_K$ only enforces $M+\ell\le1$.
+\end{proof}
+
+\begin{remark}[what the witness counts can and cannot do]
+Replacing $R(\delta,x)$ by $R(\delta,x)-\rho$ uniformly in \eqref{eq:E} and minimising $B$ over $(M,\ell,h)$ subject to \eqref{eq:L}, \eqref{eq:E} on a fine $(\delta,x)$ grid, \eqref{eq:F}, $b\ge0$ and $h\le1$ (a linear program), one obtains $B=0.8749571$ at $\rho=0$ (Liu's $B_{\mathrm{alg}}$, the value at $\kappa=3/4$, which validates the setup), $0.873436$ at $\rho=0.01$, $0.872095$ at $\rho=0.02$, and $167/192$ for every $\rho\ge0.0404$, including $\rho=\infty$ (the saturation value is specific to a uniform shift and $\kappa=3/4$). Beyond that point the constraints \eqref{eq:E} are slack and the value is the bound of Proposition~\ref{prop:barrier}. To reach $B=5/6$ \emph{both} inputs must improve: the witness counts by $\rho\ge0.227$ (needed whatever is done to the floor class, since with the floor constraint deleted entirely $\rho_{\min}=1/6+\max_\delta(\alpha-\delta)\delta P_{1/2}/(2J)=0.2271$ at $M=2/3$, $\ell=1/3$, $h=1$), and the floor-class exponent from $1$ to at most $61/75\approx0.813$ (a saving $U^{-14/75}$). Neither alone suffices: with the present witness counts, lowering the floor exponent even to $0$ leaves $B=0.8749571$, because the floor constraint is slack at Liu's optimum.
+\end{remark}
+
+\begin{remark}[where $R^*=2/3$ comes from]
+At the critical class $(\delta_c,x=1/2)$ the proven count is a three-way balance of the inverse-polynomial moment \cite[Lemma~17.1]{Ope26} (capacity $(1-r)/2$), the plain fourth moment \cite[Lemma~18.1]{Ope26} (capacity $(1-2m)/(6\kappa)$, $\kappa=3/4$) and the amplification slope $\alpha=5/6$ \cite[Lemma~17.6]{Ope26}, balanced at the detector cutoff $t^*=1+\delta P_x/(2J)\approx1.124$. The sextic large sieve of \cite[Lemma~9.1]{Ope26} is not used in the $7/8$ stage. Linearised at the critical class, $\partial R^*/\partial(\text{inverse capacity scale})=-0.031$, $\partial R^*/\partial(\text{plain capacity scale})=-0.013$, $\partial R^*/\partial\alpha=+0.031$ (more capacity lowers $R^*$, a steeper amplification slope raises it): each input must change by an $O(1)$ relative amount to move $R^*$ by $0.04$. The moment parameter $\kappa$ is a very weak lever ($F(1/2)=0.874708$ in Liu's notation).
+\end{remark}
+
+\begin{remark}[the endpoint certificate]
+Lemma~20.2 of \cite{Ope26} certifies $-E^*\ge49/440640\approx1.11\cdot10^{-4}$. The true minimum of $-E^*$ over $[1/50,5/6]\times[0,1/2]$ is $2.28\cdot10^{-4}$ at $(\delta,x)=(0.3866,1/2)$; the certificate is valid but not sharp, the slack coming from the bound $J\le5/2$ in its proof ($J\approx1.22$ at the minimiser; the other bound used there, $v\le17(3+5y)$, is tight at $y=0$).
+\end{remark}
+
+\section{The problem this isolates, and why it is not a mean-value problem}
+
+Within the comparison system, nothing below $167/192=0.8698\ldots$ is available by any choice of parameters or any improvement of the zero-witness estimates; the October 2026 refinements \cite{Liu26,XS26a,Liu26b} all remain above it, and \cite{Liu26} treats the lowest class only by its count (\cite[Lemma~19.2(4)]{Liu26}; we have checked this in \cite{Liu26} only). What would remove the barrier is a non-trivial treatment of the floor class. It is important to state correctly what that would have to be.
+
+\emph{Absolute values cannot work.} By \cite[Lemma~8.1]{Ope26}, which is stated for every retained row (the floor bin included; cf.\ \cite[\S10.5]{Ope26}), for every $\psi$ in the finite twist family $X_u$ one has $|L_{\mathrm{orig}}(s,\psi)|+|L_{\mathrm{orig}}(s,\psi)^{-1}|\ll U^{\varepsilon}$ for $\Re s\ge a+6e$, $|\Im s|\le(3i+2)T_1$, and $|L_{\mathrm{orig}}(1-a-6e+it,\psi)|\ll U^{a-1/2+12e+\varepsilon}(3+T_1)^C$; here $L_{\mathrm{orig}}$ differs from $L^S$ by a bounded two-sided factor and the height factor is absorbed by the choice of $\tau$ in \cite[\S11]{Ope26}. The retained lines $\Re s=a_0+16e$, $\Re w=1-a_0-6e$ lie in this region. Consequently, on the floor class the scalar quotient $L^S(w,\chi_\bullet(u))/L^S(s,\eta\chi_\bullet(u))$ has absolute value $U^{\delta_0/2+o(1)}$ for all but $O(U^{1-\theta/2})$ rows (those whose powerful part exceeds $U^{\theta}$, for which the conductor $Q_\psi\asymp q_{\mathrm{rad}\,u}$ is smaller than $q_u$); the two-sided bound comes from Lemma~8.1 together with the functional equation in its proof. The local correction $H_{\eta,u}$ satisfies $H_{\eta,u}\ll U^{\varepsilon}$ \cite[Lemma~7.1]{Ope26}, and no lower bound for it is asserted in \cite{Ope26} (Definition~10.1 there explicitly assumes none); the argument here concerns the scalar quotient. By \cite[Prop.~9.2, (9.16)]{Ope26} (and the sharper no-slot count of \cite[Prop.~19.2]{Ope26} for $\delta\le5/6$) every bin with $a>a_0$ has $\ll U^{R(\delta)+\varepsilon}(1+T_1)^A$ rows with $R(\delta)\le1-1/75$, there are $O(\log U)$ bins, and a dyad has $\asymp U$ retained rows; hence the floor class contains all but $O(U^{1-1/75+\varepsilon})$ of the rows. Therefore any bound that multiplies per-row absolute values of the scalar quotient by a count --- a negative moment of $L$, a large-sieve mean square of the inverse polynomial (whose diagonal is exactly the trivial count), or a zero-density estimate combined with the $U^{o(1)}$ bound for $\log L$ in a zero-free rectangle --- reproduces the trivial floor count up to $U^{o(1)}$. In particular the first negative moment $\sum_{u\ \mathrm{floor}}|L^S(s,\eta\chi_\bullet(u))|^{-1}$ is $\gg U^{1-\varepsilon}$ on the retained line, since Lemma~8.1 gives $|L^S(s,\eta\chi_\bullet(u))|\ll U^{\varepsilon}$ for each floor row. The literature on negative moments (Gonek; Bui--Florea; Gao; Gao--Zhao) gives asymptotics or bounds of the order of the family size, conditional on RH or GRH in the number-field case, and offers nothing here.
+
+\emph{What is actually required.} The architecture bounds each bin by the triangle inequality applied to the row sum, with the reciprocal taken out pointwise \cite[proof of Lemma~10.4]{Ope26}; the hypothesis (10.13) there excludes the reciprocal. To lower the floor exponent one must instead exhibit cancellation in the \emph{signed} sum over floor rows of one bin,
+\[
+S_{\mathrm{floor}}(s,w,z)=\sum_{\substack{u\ \text{floor},\ q_u\asymp U}}\xi(u)\,q_u^{-z}\,\frac{L^S(w,\chi_\bullet(u))\,H_{\eta,u,Z}(s,w,z)}{L^S(s,\eta\chi_\bullet(u))}\ \ll\ U^{1-\rho+\delta_0/2+\varepsilon}Z^{\ell(z_0-1/2)+g}
+\]
+(the scalar $\zeta_F^S(6z)$ omitted), uniformly on the retained lines $\Re s=a_0+16e$, $\Re w=1-a_0-6e$, $\Re z=17/50$ and heights $\le T_1/2$, $T_1=Z^{\tau}\le U^{1/100}$, and replace (10.13) by a hypothesis on the full signed row sum including the reciprocal. Any $\rho>0$ lowers the bound of Proposition~\ref{prop:barrier} once the witness counts have improved by $\ge0.0404$ as in Remark~\ref{prop:barrier}; $\rho\ge14/75$ is what $B=5/6$ requires, together with the witness improvement $\ge0.227$. Two obstructions are visible. The floor class is defined by zeros, not arithmetically, so the only route to a signed sum over it is ``all rows minus detected rows''; but a signed sum over \emph{all} rows of $1/L^S(s,\eta\chi_\bullet(u))$ on $\Re s=a_0$ presupposes that every member of the family is zero-free there, a hypothesis far stronger than the conclusion. Replacing $1/L$ by a truncated inverse polynomial of length $D$, which is entire and valid for all rows, leaves (by Lemma~4.9 of \cite{Ope26} on the zero-free box of a floor row and a smoothed Perron formula shifted to $\Re(s+v)=a_0+6e$) a per-row error $U^{\varepsilon}D^{-10e}$, so that absolute summation over $\asymp U$ rows requires $D\ge U^{\rho/(10e)}$, i.e.\ $D\ge U^{18}$ for $e<10^{-3}$ and $\rho=14/75$ ($e$ cannot be enlarged much, since $(16-6l_y)e$ is charged in (10.16) against a total saving of order $1/24$); this is outside the range of \cite[Lemma~17.1]{Ope26} and useless in \cite[Lemmas~17.6, 9.1]{Ope26}, which give no saving at such lengths. In the expansion of the all-rows sum into Dirichlet series the diagonal terms, those with $mn$ a sixth power, carry the factor $\sum_u\xi(u)q_u^{-z}\mathbf 1_{(u,mnS)=1}(\cdots)$, which has no pole since $\xi$ is a nonprincipal primitive character modulo $b^*$ \cite[\S6.1]{Ope26}; so no main term of size $U$ arises in the all-rows sum. This is a heuristic about the all-rows sum and says nothing by itself about $S_{\mathrm{floor}}$. We therefore regard the barrier as intrinsic to the comparison system of \S1 with the floor class counted trivially; removing it requires the signed cancellation above, for which we found no route within the present architecture.
+
+\begin{thebibliography}{9}
+\bibitem{Liu26} B.~Liu, Improved zero-free half-planes for the quasi-Riemann hypothesis, arXiv:2610.12234v2 (2026), Lean-formalized.
+\bibitem{Liu26b} B.~Liu, Zero-free half-planes for Hecke $L$-functions over number fields, arXiv:2610.26835 (2026).
+\bibitem{XS26a} Y.~Xu, H.~Sang, Amplified moments and a refinement of the quasi-Riemann hypothesis, arXiv:2610.15291 (2026).
+\bibitem{XS26b} Y.~Xu, H.~Sang, A matching lower bound for the sextic large sieve and structured prime moments, arXiv:2610.17675 (2026).
+\bibitem{Ope26} OpenAI, The quasi-Riemann hypothesis: a zero-free half-plane $\Re s>7/8$, manuscript (2026-09-30), \texttt{github.com/openai/math}, family 003, Lean-verified.
+\end{thebibliography}
+\end{document}

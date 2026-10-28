@@ -1,0 +1,190 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\N}{\mathbb N}
+
+\title{An explicit Li-positivity threshold from the numerical verification of the Riemann hypothesis}
+\author{S.~Reiner\thanks{Derivation, computation and review were carried out with the assistance of Claude (Anthropic), including an independent adversarial review by a separate model instance. The author takes responsibility for the content.}}
+\date{October 26, 2026 --- draft v2 (after one round of internal refereeing), not yet externally reviewed}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $\lambda_n=\sum_\rho\bigl[1-(1-1/\rho)^n\bigr]$ be the Li coefficients of the Riemann $\xi$-function. We prove, without any hypothesis, that $\lambda_n>0$ for every integer $1\le n\le N_0=1.918\,555\,899\ldots\cdot10^{24}$ (exact value in Theorem~\ref{thm:main}). The inputs are the zero-sum formula for $\lambda_n$, the Platt--Trudgian verification that all zeros with $|\Im\rho|\le T_0=3\cdot10^{12}$ lie on the critical line, and the explicit zero-counting bound of Hasanalizade, Shen and Wong. The threshold is $N_0\approx0.21\,T_0^2$. The statement ``verification to height $T$ implies $\lambda_n\ge0$ for $n\le T^2$'' is attributed to an unpublished typescript of Oesterl\'e (2000); the one published proof with that threshold that we are aware of was retracted, and the published result in this direction, Lagarias (2007), has non-explicit constants and threshold $T^2/(2\log^2T)$. The present threshold is certified in ball arithmetic.
+\end{abstract}
+
+\section{Statement}
+
+Let $\xi(s)=\tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$, an entire function of order one whose zeros $\rho=\beta+i\gamma$ are exactly the nontrivial zeros of $\zeta$, counted with multiplicity, with $0<\beta<1$ and $\gamma\ne0$ (as $\zeta(\sigma)\ne0$ for $0<\sigma<1$). The multiset of zeros is invariant under $\rho\mapsto\bar\rho$ and $\rho\mapsto1-\rho$. Li \cite{Li97} defined
+\[
+\lambda_n=\frac{1}{(n-1)!}\frac{d^n}{ds^n}\Bigl[s^{n-1}\log\xi(s)\Bigr]_{s=1}\qquad(n\ge1),
+\]
+proved $\lambda_n=\sum_\rho\bigl[1-(1-1/\rho)^n\bigr]$ (sum in the symmetric order $|\gamma|\le T$, $T\to\infty$), and showed that the Riemann hypothesis is equivalent to $\lambda_n\ge0$ for all $n\ge1$; see Bombieri and Lagarias \cite{BL99} for the general form. One has $\lambda_1=1+\gamma_{E}/2-\tfrac12\log4\pi=0.0230957\ldots$ (here $\gamma_E$ is Euler's constant).
+
+\begin{theorem}\label{thm:main}
+For every integer $n$ with $1\le n\le N_0:=1\,918\,555\,899\,886\,294\,190\,260\,224$ one has $\lambda_n>0$.
+\end{theorem}
+
+The proof uses exactly the following external inputs.
+\begin{itemize}
+\item[(I1)] The zero-sum formula above. After pairing $\rho$ with $\bar\rho$ the series converges absolutely: $1-(1-1/\rho)^n=n/\rho+\sum_{k=2}^n(-1)^{k+1}\binom nk\rho^{-k}$ and $2\Re(n/\rho)=2n\beta/|\rho|^2$, so the paired term is $O_n(|\rho|^{-2})$, and $\sum_\rho|\rho|^{-2}<\infty$ (cf.\ \cite{BL99}). The symmetric-order sum equals the sum of the paired terms over $\gamma>0$.
+\item[(I2)] (Platt--Trudgian \cite{PT21}) Every zero with $|\gamma|\le T_0:=3\cdot10^{12}$ has $\beta=1/2$. Throughout, $T_0$ denotes this fixed constant.
+\item[(I3)] (Hasanalizade--Shen--Wong \cite{HSW22}, Cor.~1.2) Let $N(T)$ be the number of zeros with $0<\gamma\le T$, counted with multiplicity (their proof is by the argument principle applied to $\xi$). For all $T\ge e$,
+\[
+\bigl|N(T)-M(T)\bigr|\le R(T),\qquad M(T):=\frac{T}{2\pi}\log\frac{T}{2\pi e},
+\]
+\[
+R(T):=0.1038\log T+0.2573\log\log T+9.3675 .
+\]
+Since $M$ and $R$ are continuous, the convention at the jumps of $N$ is immaterial; we use the right-continuous $N$ (zeros with $0<\gamma\le T$), as the Stieltjes integrations below require.
+\end{itemize}
+Nothing is assumed about the zeros with $|\gamma|>T_0$ beyond $0<\beta<1$. Simplicity of zeros is not used.
+
+\section{Notation and elementary lemmas}
+
+For a zero $\rho$ write $w_\rho:=1-1/\rho=(\rho-1)/\rho$, $r_\rho:=|w_\rho|$, $\theta_\rho:=\arg w_\rho$. Then
+\begin{equation}\label{eq:r}
+r_\rho^2=\frac{(1-\beta)^2+\gamma^2}{\beta^2+\gamma^2},
+\end{equation}
+so $r_\rho=1$ if and only if $\beta=1/2$. Split $\lambda_n=A_n+B_n$, where $A_n$ is the part of the sum (I1) over $|\gamma|\le T_0$ and $B_n$ the part over $|\gamma|>T_0$.
+
+\begin{lemma}[on-line pairs]\label{lem:online}
+If $\beta=1/2$ and $\gamma>0$, then $\bar\rho=1-\rho$, $r_\rho=1$, and the pair $\{\rho,\bar\rho\}$ contributes $2(1-\cos n\theta_\rho)\ge0$ to $\lambda_n$, where $\theta_\rho=2\arctan\bigl(1/(2\gamma)\bigr)\in(0,\pi)$. Consequently
+\[
+\frac1\gamma-\frac1{12\gamma^3}\le\theta_\rho\le\frac1\gamma .
+\]
+\end{lemma}
+\begin{proof}
+$w_\rho=(-\tfrac12+i\gamma)/(\tfrac12+i\gamma)$ has modulus $1$ and equals $(\gamma^2-\tfrac14+i\gamma)/(\gamma^2+\tfrac14)$, so $\cos\theta=(\gamma^2-\tfrac14)/(\gamma^2+\tfrac14)$, $\sin\theta=\gamma/(\gamma^2+\tfrac14)>0$ and $\tan(\theta/2)=\sin\theta/(1+\cos\theta)=1/(2\gamma)$. The conjugate zero gives $\bar w_\rho$, so the pair contributes $2-2\Re w_\rho^n=2(1-\cos n\theta)$. The bounds follow from $x-x^3/3\le\arctan x\le x$ for $x\ge0$ with $x=1/(2\gamma)$.
+\end{proof}
+
+\begin{lemma}[off-line quadruples]\label{lem:offline}
+If $\beta\ne1/2$, the four distinct zeros $\rho,\bar\rho,1-\rho,1-\bar\rho$ (same $|\gamma|$, same multiplicity) contribute together
+\[
+Q_\rho(n)=4-4\cosh(n\log r_\rho)\cos(n\theta_\rho)\ \ge\ 4-4\cosh(n\delta_\rho)=-8\sinh^2(n\delta_\rho/2),\qquad \delta_\rho:=|\log r_\rho| .
+\]
+Moreover, if $|\gamma|\ge T_0\ge2$, then $\delta_\rho\le c/(2\gamma^2)$ with $c:=1+T_0^{-2}$.
+\end{lemma}
+\begin{proof}
+$1-1/(1-\rho)=-\rho/(1-\rho)=1/w_\rho$, and similarly for the conjugates. Writing $w_\rho=re^{i\theta}$, the four terms sum to $4-2\Re(w^n)-2\Re(w^{-n})=4-2(r^n+r^{-n})\cos n\theta=4-4\cosh(n\log r)\cos n\theta$. Since $\cosh\ge1$ and $\cos n\theta\le1$ the first inequality follows, and $4-4\cosh x=-8\sinh^2(x/2)$. For $\delta_\rho$: by \eqref{eq:r}, $\log r=\tfrac12\log(1+x)$ with $x=(1-2\beta)/|\rho|^2$ and $|x|\le1/\gamma^2\le1/4$. For $|x|\le1/2$, $|\log(1+x)-x|\le x^2/(2(1-|x|))\le x^2$, so $\delta_\rho\le\tfrac12\bigl(|1-2\beta|/|\rho|^2+\gamma^{-4}\bigr)\le(1+\gamma^{-2})/(2\gamma^2)\le c/(2\gamma^2)$.
+\end{proof}
+
+\section{The tail}
+
+\begin{lemma}[tail lower bound]\label{lem:tail}
+For every $n\ge1$, with $g_n(t):=\sinh^2\bigl(nc/(4t^2)\bigr)$,
+\[
+B_n\ \ge\ -E(n),\qquad E(n):=4\Bigl[2R(T_0)g_n(T_0)+\int_{T_0}^\infty\Bigl(\tfrac1{2\pi}\log\tfrac{t}{2\pi}+\tfrac{0.1038}{t}+\tfrac{0.2573}{t\log t}\Bigr)g_n(t)\,dt\Bigr].
+\]
+In particular, with $u_0:=nc/(4T_0^2)$,
+\[
+E(n)\le E^*(n):=\frac{n^2c^2}{4}\cosh^2(u_0)\,J(T_0),
+\]
+\[
+J(T_0):=\frac{2R(T_0)}{T_0^4}+\frac{\log(T_0/2\pi)/3+1/9}{2\pi T_0^3}+\frac{0.1038}{4T_0^4}+\frac{0.2573}{4T_0^4\log T_0}.
+\]
+\end{lemma}
+\begin{proof}
+The zeros with $|\gamma|>T_0$ split into on-line conjugate pairs, whose contribution is $\ge0$ by Lemma~\ref{lem:online} (whose proof did not use $\gamma\le T_0$), and off-line quadruples. Regrouping the conjugate-paired series into these blocks is legitimate by absolute convergence (I1). By Lemma~\ref{lem:offline} and monotonicity of $\sinh^2$ on $[0,\infty)$ (as $n\delta_\rho/2\le nc/(4\gamma^2)$), $B_n\ge-8\sum_{\mathrm{quad}}g_n(\gamma)$. Each quadruple contains exactly two zeros of positive ordinate ($\rho$ and $1-\bar\rho$, both of ordinate $\gamma$), so, with multiplicity and since $g_n\ge0$,
+\[
+\sum_{\mathrm{quad}}g_n(\gamma)\le\tfrac12\sum_{\rho:\,\gamma>T_0}g_n(\gamma)=\tfrac12\int_{(T_0,\infty)}g_n\,dN .
+\]
+Hence $B_n\ge-4\int_{(T_0,\infty)}g_n\,dN$. Now $g_n$ is $C^1$ and decreasing with $g_n(t)=O(t^{-4})$, while $N(t)=O(t\log t)$, so Stieltjes integration by parts gives
+\[
+\int_{(T_0,\infty)}g_n\,dN=-g_n(T_0)N(T_0)+\int_{T_0}^\infty N(t)\bigl(-g_n'(t)\bigr)\,dt .
+\]
+Insert $N(T_0)\ge M(T_0)-R(T_0)$ and, since $-g_n'\ge0$, $N(t)\le M(t)+R(t)=:N^+(t)$ (both valid by (I3), as $T_0\ge e$). Integrating by parts once more,
+\[
+\int_{(T_0,\infty)}g_n\,dN\le-g_n(T_0)\bigl(M(T_0)-R(T_0)\bigr)+N^+(T_0)g_n(T_0)+\int_{T_0}^\infty (N^+)'(t)g_n(t)\,dt,
+\]
+which is the bracket in $E(n)$ because $M'(t)=\frac1{2\pi}\log\frac t{2\pi}$ and $R'(t)=0.1038/t+0.2573/(t\log t)$. For $E^*$: $\sinh y\le y\cosh y$ for $y\ge0$, so $g_n(t)\le(nc/(4t^2))^2\cosh^2u_0$ for $t\ge T_0$, and $\int_{T_0}^\infty\log(t/2\pi)\,t^{-4}dt=(\log(T_0/2\pi)/3+1/9)/T_0^3$, $\int_{T_0}^\infty t^{-5}dt=1/(4T_0^4)$, $\int_{T_0}^\infty t^{-5}/\log t\,dt\le1/(4T_0^4\log T_0)$.
+\end{proof}
+
+\section{The head}
+
+Two lower bounds for $A_n$ are used, one for $n\le\pi T_0$ and one for larger $n$.
+
+\begin{lemma}[small-angle head bound]\label{lem:head1}
+Let $n\ge1$ and $\max(n/\pi,60)\le a\le T_0$. Then
+\[
+A_n\ \ge\ \frac{4n^2}{\pi^2}\Bigl(1-\frac1{12a^2}\Bigr)^2 S^-(a),
+\]
+\[
+S^-(a):=\frac{M(T_0)-R(T_0)}{T_0^2}-\frac{M(a)+R(a)}{a^2}+\frac1\pi\Bigl(\frac{\log(a/2\pi)}{a}-\frac{\log(T_0/2\pi)}{T_0}\Bigr)-2\!\int_a^{T_0}\!\!R(t)t^{-3}dt .
+\]
+\end{lemma}
+\begin{proof}
+By (I2) and Lemma~\ref{lem:online}, $A_n=\sum_{0<\gamma\le T_0}2(1-\cos n\theta_\gamma)$ (sum with multiplicity) with every term $\ge0$. Keep only $\gamma>a$. For such $\gamma$, $n\theta_\gamma\le n/\gamma<n/a\le\pi$, and $1-\cos x=2\sin^2(x/2)\ge2x^2/\pi^2$ for $|x|\le\pi$ (Jordan's inequality). Hence $A_n\ge(4n^2/\pi^2)\sum_{a<\gamma\le T_0}\theta_\gamma^2\ge(4n^2/\pi^2)(1-1/(12a^2))^2\sum_{a<\gamma\le T_0}\gamma^{-2}$ by Lemma~\ref{lem:online}. Finally $\sum_{a<\gamma\le T_0}\gamma^{-2}=N(T_0)/T_0^2-N(a)/a^2+2\int_a^{T_0}N(t)t^{-3}dt$; insert $N(T_0)\ge M-R$, $N(a)\le M+R$, $N(t)\ge M-R$ on $[a,T_0]$ (valid as $a\ge60>e$), and $2\int M(t)t^{-3}dt=-\frac1\pi\log(t/2\pi)/t$.
+\end{proof}
+
+\begin{lemma}[oscillatory head bound]\label{lem:head2}
+Let $2\pi\le T_1<T_0$ and $n\ge1$. Then
+\[
+A_n\ \ge\ A'(n,T_1):=2\bigl[M(T_0)-M(T_1)-2R(T_0)-2R(T_1)\bigr]-\frac{4M'(T_0)(T_0^2+\tfrac14)}{n}-2nR(T_0)\Bigl(\frac1{T_1}-\frac1{T_0}\Bigr).
+\]
+\end{lemma}
+\begin{proof}
+With $\theta(t):=2\arctan(1/(2t))$, decreasing, $\theta'(t)=-1/(t^2+\frac14)$, and all terms nonnegative,
+\[
+A_n\ge\sum_{T_1<\gamma\le T_0}2(1-\cos n\theta(\gamma))=2[N(T_0)-N(T_1)]-2I,\qquad I:=\int_{(T_1,T_0]}\cos(n\theta(t))\,dN(t),
+\]
+the sums being with multiplicity. Riemann--Stieltjes integration by parts ($N$ right-continuous, $\cos n\theta(t)$ of class $C^1$) gives
+$I=\cos(n\theta(T_0))N(T_0)-\cos(n\theta(T_1))N(T_1)-\int_{T_1}^{T_0}N(t)\,n\sin(n\theta(t))/(t^2+\frac14)\,dt$. Write $N=M+\tilde S$ on $[T_1,T_0]$ with $|\tilde S|\le R$ by (I3). The $M$-part reassembles, by ordinary integration by parts, to $I_M=\int_{T_1}^{T_0}\cos(n\theta(t))M'(t)\,dt$; the $\tilde S$-part is bounded by $R(T_0)+R(T_1)+nR(T_0)\int_{T_1}^{T_0}t^{-2}dt$, using $R$ increasing and $1/(t^2+\frac14)\le t^{-2}$. For $I_M$ substitute $t=t(\theta)$, $dt=-(t^2+\frac14)d\theta$: $I_M=\int_{\theta(T_0)}^{\theta(T_1)}\cos(n\theta)\psi(\theta)\,d\theta$ with $\psi(\theta)=M'(t(\theta))(t(\theta)^2+\frac14)$, which is nonnegative and non-increasing in $\theta$ because $t(\theta)$ is decreasing and $M'$, $t^2$ are nonnegative and increasing in $t$ on $[T_1,T_0]$ ($M'\ge0$ there since $T_1\ge2\pi$). By Bonnet's form of the second mean value theorem (nonnegative non-increasing weight, evaluated at the left endpoint), $I_M=\psi(\theta(T_0))\int_{\theta(T_0)}^{\xi}\cos(n\theta)\,d\theta$ for some $\xi$, so $|I_M|\le2\psi(\theta(T_0))/n$. Finally $N(T_0)-N(T_1)\ge M(T_0)-M(T_1)-R(T_0)-R(T_1)$.
+\end{proof}
+
+\begin{remark}
+Lemma~\ref{lem:head1} has no admissible $a$ for $n>\pi T_0$ (then $n/\pi>T_0$); Lemma~\ref{lem:head2} is what carries the argument to $n\asymp T_0^2$. In Lemma~\ref{lem:head2} the loss relative to the heuristic $T_0^2$ threshold comes from estimating $\tilde S=N-M$ by $R(T_0)$ in absolute value; an input of the type $\int_0^T S(t)\,dt=O(\log T)$ (Littlewood), where $S(t)=\pi^{-1}\arg\zeta(\tfrac12+it)$ differs from $\tilde S$ by a bounded term, would exploit the cancellation instead. The constant $0.21$ is where $2nR(T_0)/T_1$ crosses $2[M(T_0)-M(T_1)]$ at $T_1=2T_0/3$.
+\end{remark}
+
+\section{Proof of Theorem~\ref{thm:main}}
+
+Let $n_1\le n\le n_2$ be integers. Put $a:=\max(n_2/\pi,60)$ and, if $a\le T_0$, $A_1(n_1,n_2):=(4n_1^2/\pi^2)(1-1/(12a^2))^2S^-(a)$; put $A_2(n_1,n_2;T_1):=2[M(T_0)-M(T_1)-2R(T_0)-2R(T_1)]-4M'(T_0)(T_0^2+\frac14)/n_1-2n_2R(T_0)(1/T_1-1/T_0)$ for $T_1\in[2\pi,T_0)$.
+
+\begin{lemma}\label{lem:interval}
+If $\max\{A_1(n_1,n_2),A_2(n_1,n_2;T_1)\}>E^*(n_2)$ (the first term omitted when $a>T_0$), then $\lambda_n>0$ for every integer $n\in[n_1,n_2]$.
+\end{lemma}
+\begin{proof}
+$\lambda_n=A_n+B_n\ge A_n-E^*(n)$ by Lemma~\ref{lem:tail}, and $E^*$ is increasing in $n$ (a product of positive increasing factors), so $E^*(n)\le E^*(n_2)$. If the maximum is attained by $A_1$: Lemma~\ref{lem:head1} applies with this $a$ (as $\max(n/\pi,60)\le a\le T_0$ in this case), and since $A_1>E^*(n_2)>0$ forces $S^-(a)>0$, replacing $n^2$ by $n_1^2$ only decreases the bound. If attained by $A_2$: Lemma~\ref{lem:head2} with $1/n\le1/n_1$ and $n\le n_2$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Lemma~\ref{lem:interval} is applied along a chain of $89$ consecutive intervals $[n_1,n_2]$ with $n_1=1$ initially and each new $n_1$ equal to the previous $n_2$, so that every integer in $[1,N_0]$ is covered; $T_1$ is chosen among $\{T_0/10,T_0/4,T_0/3,T_0/2,2T_0/3\}$. All quantities are evaluated in ball arithmetic (Arb, via \texttt{python-flint} 0.9.0, working precision 60 digits), with $\int_a^{T_0}R(t)t^{-3}\,dt$ replaced by the closed-form upper bound obtained from $\log\log t\le\log t$, which only decreases $S^-(a)$; for each interval the larger of $A_1$ and the five candidates $A_2(\cdot;T_1)$ is used. An interval is accepted only when the ball enclosing (head bound)$\,-E^*(n_2)$ lies entirely in $(0,\infty)$, which is what the Arb comparison with $0$ certifies. The last accepted interval is $[1\,918\,555\,885\,591\,938\,922\,971\,136,\,N_0]$, on which the head bound is $4.93658106\cdot10^{10}$ against $E^*(N_0)=4.93658070\cdot10^{10}$ (both to within $0.05$). The certifying script and its output are archived with this note.\footnote{\texttt{lab/certify\_li\_threshold.py}, output \texttt{log/2026-10-26\_certify\_li\_threshold\_v3\_output.txt}.}
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}[sharpness and the mechanism]
+The threshold is $N_0\approx0.213\,T_0^2$, attained with $T_1=2T_0/3$. The quadruple formula of Lemma~\ref{lem:offline} shows precisely how an off-line zero affects the Li coefficients: it perturbs $\lambda_n$ by $-4(\cosh n\delta_\rho-1)\cos n\theta_\rho$, i.e.\ by at most about $n^2(1-2\beta)^2/(2|\rho|^4)$ in absolute value until $n\approx\gamma^2/|1-2\beta|$, after which the perturbation grows like $\exp\bigl(n|1-2\beta|/(2\gamma^2)\bigr)$ with oscillating sign. Thus (heuristically, against the main term $\tfrac n2\log n$) an off-line zero is detected by the sign of some $\lambda_n$ only once $n\gtrsim\gamma^2\log n/|1-2\beta|$; the converse implication is not proved here. In either direction, Li positivity up to $N$ cannot detect a zero close to the line at any height. This is the quantitative content of the detection threshold $n\gtrsim T^2/|t|$ for a zero $\tfrac12+t+iT$ discussed by Voros \cite[\S1]{Vor17}.
+\end{remark}
+
+\begin{remark}[literature]
+Biane, Pitman and Yor \cite[p.~441]{BPY01} report, as a private communication of J.~Oesterl\'e, that $\lambda_n\ge0$ whenever all zeros with $|\Im\rho|<\sqrt n$ lie on the line; Voros \cite{Vor17} attributes to the same unpublished typescript the implication with $n\le T_0^2$. Lagarias \cite[Thm.~1.1, eq.~(1.17), and the remark preceding it]{Lag07} proves unconditionally $\lambda_n=\tfrac n2\log n+c_1n-\lambda_n(\sqrt n)+O(\sqrt n\log n)$, where $\lambda_n(T):=\sum_{|\Im\rho|<T}[1-(1-1/\rho)^n]$ is his incomplete Li coefficient (his eq.~(1.14); for $\zeta$ the dual representation is $\zeta$ itself), and deduces the asymptotic $\lambda_n=\tfrac n2\log n+c_1n+O(\sqrt n\log n)$ (the form it takes under the Riemann hypothesis) for $n\le T^2/(2\log^2T)$ from verification to height $T$, with non-explicit constants.\footnote{The journal version states $T^2/(2\log^2 T)$; the arXiv version (math/0404394v4) states $T^2/(4\log^2T)$.} Omar, Ouni and Mazhouda \cite{OOM11} stated a partial Li criterion with threshold $T^2$; the paper was retracted \cite{OOMretr}. The largest range in which positivity has been certified by direct computation of $\lambda_n$ is $n\le10^5$ (Johansson \cite{Joh15}, using Arb). An earlier attempt at an explicit threshold from a zero-free region, Brown \cite[Thm.~2]{Bro05}, is reported to be defective by Paloj\"arvi \cite{Pal18}. The present note gives, as far as we know, the first explicit and fully proved threshold derived from a verification height, i.e.\ the first explicit form of the implication attributed to Oesterl\'e, with constant $0.21$ in place of $1$; a treatment of $\int\tilde S(t)\,dt$ in Lemma~\ref{lem:head2} exploiting cancellation would likely recover the constant $1$.
+\end{remark}
+
+\begin{remark}[the 2026 zero-free half-plane]
+The zero-free half-plane $\Re s>7/8$ announced in \cite{Ope26} (unrefereed; an accompanying Lean formalization is reported, which we have not checked) would allow $c=3/4+T_0^{-2}$ in Lemma~\ref{lem:offline}; it changes $N_0$ by $0.25\%$ because the threshold is set by the head bound, and we have not used it.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{Bro05} F.~C.~S.~Brown, Li's criterion and zero-free regions of $L$-functions, \emph{J.\ Number Theory} 111 (2005), 1--32.
+\bibitem{BPY01} P.~Biane, J.~Pitman, M.~Yor, Probability laws related to the Jacobi theta and Riemann zeta functions, and Brownian excursions, \emph{Bull.\ Amer.\ Math.\ Soc.} 38 (2001), 435--465.
+\bibitem{BL99} E.~Bombieri, J.~C.~Lagarias, Complements to Li's criterion for the Riemann hypothesis, \emph{J.\ Number Theory} 77 (1999), 274--287.
+\bibitem{HSW22} E.~Hasanalizade, Q.~Shen, P.-J.~Wong, Counting zeros of the Riemann zeta function, \emph{J.\ Number Theory} 235 (2022), 219--241.
+\bibitem{Joh15} F.~Johansson, Rigorous high-precision computation of the Hurwitz zeta function and its derivatives, \emph{Numer.\ Algorithms} 69 (2015), no.~2, 253--270, doi:10.1007/s11075-014-9893-1.
+\bibitem{Lag07} J.~C.~Lagarias, Li coefficients for automorphic $L$-functions, \emph{Ann.\ Inst.\ Fourier} 57 (2007), 1689--1740.
+\bibitem{Li97} X.-J.~Li, The positivity of a sequence of numbers and the Riemann hypothesis, \emph{J.\ Number Theory} 65 (1997), 325--333.
+\bibitem{Pal18} N.~Paloj\"arvi, Explicit zero-free regions and a $\tau$-Li-type criterion, arXiv:1807.01506.
+\bibitem{OOM11} S.~Omar, R.~Ouni, K.~Mazhouda, On the zeros of Dirichlet $L$-functions, \emph{LMS J.\ Comput.\ Math.} 14 (2011), 140--154.
+\bibitem{OOMretr} S.~Omar, R.~Ouni, K.~Mazhouda, On the zeros of Dirichlet $L$-functions -- retraction, \emph{LMS J.\ Comput.\ Math.} 20 (2017), 53.
+\bibitem{Ope26} OpenAI, The quasi-Riemann hypothesis: a zero-free half-plane $\Re s>7/8$, manuscript dated 2026-09-30, \texttt{github.com/openai/math}, \texttt{preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/paper.pdf}.
+\bibitem{PT21} D.~J.~Platt, T.~S.~Trudgian, The Riemann hypothesis is true up to $3\cdot10^{12}$, \emph{Bull.\ London Math.\ Soc.} 53 (2021), 792--797.
+\bibitem{Vor17} A.~Voros, Discretized Keiper/Li approach to the Riemann hypothesis, \emph{Exp.\ Math.} 29 (2020), no.~4, 452--469, doi:10.1080/10586458.2018.1482480; arXiv:1703.02844.
+\end{thebibliography}
+\end{document}

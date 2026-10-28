@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\renewcommand{\Re}{\operatorname{Re}}
+\title{Growth of $\zeta$ and of Dirichlet $L$-functions to the right of $7/8$: \\ explicit consequences of the uniform zero-free half-plane}
+\author{S.~Reiner\thanks{Prepared with the assistance of Claude (Anthropic); the author takes responsibility for the content.}}
+\date{October 27, 2026 --- draft v3 (density routes checked with the ANTEDB engine), not yet externally reviewed}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The uniform zero-free half-plane $\Re s>7/8$ for all Dirichlet $L$-functions (OpenAI, September 2026, Lean-verified) implies, by the classical Borel--Carath\'eodory/three-circles argument, that $L(\sigma+it,\chi)^{\pm1}\ll_{\delta,\varepsilon}(q(|t|+3))^{\varepsilon}$ uniformly in $q$ and $t$ for $\sigma\ge7/8+\delta$. This is the Dirichlet analogue of Lemma~4.9 (``global assertion'') of the OpenAI manuscript, which is stated there, as an internal tool, for finite-order Hecke characters over $\mathbb Q(\sqrt{-3})$. We record its consequences for the Lindel\"of $\mu$-function of $\zeta$: $\mu(\sigma)=0$ for $\sigma\ge7/8$, previously known only for $\sigma\ge1$, and by convexity $\mu(\sigma)\le\tfrac{26}{63}(\tfrac78-\sigma)$ on $[\tfrac12,\tfrac78]$, which improves the sharpest known bounds for $\sigma>1351/1976\approx0.684$; for instance $\mu(4/5)\le13/420=0.0310$ against the previous $0.0415$. Analogous interpolations hold in the conductor aspect. We also note that the standard single-abscissa theorems converting growth into zero-density bounds give nothing below $7/8$ from this input.
+\end{abstract}
+
+\section{Input and statement}
+
+Throughout, $\Theta:=7/8$. The input is:
+
+\medskip\noindent\textbf{(H)} Every Dirichlet $L$-function $L(s,\chi)$, including $\zeta$, has no zeros with $\Re s>\Theta$.
+
+\medskip\noindent (H) is Theorem~1.1 of \cite{Ope26} (the Lean-verified statements there are exactly the nonvanishing of $\zeta$ and of all Dirichlet $L$-functions for $\Re s>7/8$ \cite{Ope26lean}); by \cite{Liu26} one may take $\Theta=0.874957\ldots$ and by \cite{Liu26b} the same holds for finite-order Hecke $L$-functions over every number field. Everything below is conditional on (H) and is stated for $\Theta=7/8$; the proofs work verbatim for any $\Theta\in(1/2,1)$.
+
+For a primitive character $\chi$ modulo $q$ put $Q:=q(|t|+3)$ and, for the principal character ($q=1$), $L(s,\chi):=(s-1)\zeta(s)/(s+1)$ with its removable value at $1$.
+
+\begin{theorem}\label{thm:main}
+Assume (H). For every $\delta>0$ and $\varepsilon>0$, uniformly in all primitive $\chi$ modulo $q$, all real $t$ and all $\sigma\ge\Theta+\delta$,
+\[
+|L(\sigma+it,\chi)|+|L(\sigma+it,\chi)|^{-1}\ \ll_{\delta,\varepsilon}\ Q^{\varepsilon},\qquad
+\Bigl|\frac{L'}{L}(\sigma+it,\chi)\Bigr|\ \ll_{\delta}\ \log Q .
+\]
+For $q=1$ the reciprocal bound passes to $1/\zeta$, and for $|t|\ge1$ the upper bound passes to $\zeta$.
+\end{theorem}
+
+This is \cite[Lemma~4.9, ``global assertion'']{Ope26} for finite-order Hecke characters over $\mathbb Q(\sqrt{-3})$; we give the (identical) proof for Dirichlet $L$-functions so that the statement is self-contained.
+
+\begin{proof}
+We may assume $\delta\le1/8$: if $\delta>1/8$ then $\sigma\ge\Theta+\delta>1+(\delta-1/8)$ and the Euler product gives $|\log L(s,\chi)|\le\log\zeta(1+\delta-1/8)$ (for $q=1$ add the bounded logarithm of $(s-1)/(s+1)$), which implies all three bounds. Fix $t$ and put $s_0:=2+it$. Let $g$ be the holomorphic branch of $\log L(s,\chi)$ on the half-plane $\{\Re s>\Theta\}$, which is simply connected and zero-free by (H) (for $q=1$ the regularized function has neither zero nor pole there), agreeing with the Euler-product logarithm for $\Re s>1$ (for $q=1$ add the principal branch of $\log\frac{s-1}{s+1}$). Then $g$ is holomorphic on a neighbourhood of every closed disk $\{|s-s_0|\le r\}$ with $r<2-\Theta$. Put
+\[
+r_0:=\tfrac12<r_3:=2-\Theta-2\delta<r_2:=2-\Theta-\delta<r_1:=2-\Theta-\delta/2 ,
+\]
+so that all these closed disks lie in $\Re s\ge\Theta+\delta/2$. At the centre, $|g(s_0)|\le\log\zeta(2)+O(1)$. On the disk of radius $r_1$ one has $|L(s,\chi)|\le C_0Q^{A}$ with absolute $C_0,A$: for $\Re s\ge5/4$ by the Euler product, and for $-1/4\le\Re s\le5/4$ by Phragm\'en--Lindel\"of between those two lines using the functional equation and Stirling's formula on $\Re s=-1/4$ (one may take $A=3/4$; see e.g.\ \cite[Ch.~10]{MV}); for $q=1$ apply this to $(s-1)\zeta(s)/(s+1)$, which is holomorphic in that strip. Points of the disk have height $t'$ with $|t'-t|<9/8$, so $q(|t'|+3)\le2Q$, absorbed into $C_0$. Hence $\Re g=\log|L|\le A\log Q+\log C_0$ on $|s-s_0|\le r_1$, and the Borel--Carath\'eodory inequality (in the form of \cite[\S5.5]{TitF}) on the radii $r_1>r_2$ gives
+\[
+\max_{|s-s_0|\le r_2}|g(s)|\ \le\ \frac{2r_2}{r_1-r_2}\,(A\log Q+\log C_0)+\frac{r_1+r_2}{r_1-r_2}|g(s_0)|\ \ll_\delta\ \log Q ,
+\]
+since $r_1-r_2=\delta/2$. On the disk of radius $r_0$ one has $\Re s\ge3/2$, so $|g|\le\log\zeta(3/2)+O(1)$ there. Hadamard's three-circles theorem on the radii $r_0<r_3<r_2$ gives
+\[
+\max_{|s-s_0|\le r_3}|g(s)|\ \ll_\delta\ (\log Q)^{\theta},\qquad \theta=\frac{\log(r_3/r_0)}{\log(r_2/r_0)}<1 .
+\]
+The disk of radius $r_3$ contains the segment $\{\sigma+it:\ \Theta+2\delta\le\sigma\le2\}$ (its points are at distance $2-\sigma\le r_3$ from $s_0$); for $\sigma\ge2$ the Euler product gives $|g|\le\log\zeta(2)+O(1)$. Since $\exp(C(\log Q)^{\theta})\ll_{\theta,\varepsilon}Q^{\varepsilon}$, applying this to $e^{g}=L$ and $e^{-g}=1/L$ proves the first bound with $2\delta$ in place of $\delta$. Cauchy's estimate for $g'=L'/L$ between the radii $r_3$ and $r_2$ (distance $\delta$) gives the second. Replacing $\delta$ by $\delta/2$ throughout gives the statement; all constants depend only on $(\Theta,\delta,\varepsilon)$.
+\end{proof}
+
+Uniformity in $q$ of the half-plane enters exactly once: the zero-freeness of the disks of radius $<2-\Theta$ around $2+it$ for every $\chi$, with the same $\Theta$. All radii and $\theta$, hence all constants, depend only on $(\Theta,\delta,\varepsilon)$. If one only had $L(s,\chi)\ne0$ for $\Re s>\Theta_q$ with $\Theta_q\to1$, the constants would depend on $q$ and nothing uniform would follow. For $q=1$ and $|t|\ge1$ the upper bound passes from the regularized function to $\zeta$ itself, since $|(s+1)/(s-1)|\le(|t|+3)/|t|\le4$; the $L'/L$ bound for $q=1$ is for the regularized function.
+
+\section{Consequences for the growth of $\zeta$}
+
+Let $\mu(\sigma):=\limsup_{|t|\to\infty}\log|\zeta(\sigma+it)|/\log|t|$ be the Lindel\"of function; $\mu$ is convex and non-increasing, $\mu(\sigma)=0$ for $\sigma\ge1$, and $\mu(1/2)\le13/84$ (Bourgain \cite{Bou17}). Unconditionally $\mu(\sigma)=0$ was known only for $\sigma\ge1$; the sharpest known bounds on $[1/2,1)$ are the exponent-pair bounds compiled in \cite[Table~6.2]{ANTEDB} (Trudgian--Yang \cite{TY24} and Heath-Brown), all strictly positive, e.g.\ $\mu(\sigma)\le\tfrac{29}{130}-\tfrac{3}{13}\sigma$ on $[0.8558,0.9233]$, giving $\mu(7/8)\le0.0212$.
+
+\begin{corollary}\label{cor:mu}
+Assume (H). Then $\mu(\sigma)=0$ for $\sigma\ge7/8$, and
+\[
+\mu(\sigma)\ \le\ \frac{26}{63}\Bigl(\frac78-\sigma\Bigr)\qquad(\tfrac12\le\sigma\le\tfrac78).
+\]
+The right-hand side is smaller than the bound of \cite[Table~6.2]{ANTEDB} exactly for $\sigma>1351/1976=0.6837\ldots$ (the crossing is with the piece $\tfrac{1333}{3825}-\tfrac{1508}{3825}\sigma$). Sample values: $\mu(0.7)\le13/180=0.0722$ (previously $0.0726$), $\mu(3/4)\le13/252=0.0516$ ($0.0564$), $\mu(4/5)\le13/420=0.0310$ ($0.0415$), $\mu(0.85)\le13/1260=0.0103$ ($0.0272$).
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:main} with $q=1$ gives $\zeta(\sigma+it)\ll_{\delta,\varepsilon}|t|^{\varepsilon}$ for $\sigma\ge7/8+\delta$, i.e.\ $\mu(\sigma)=0$ for $\sigma>7/8$ (using that the bound passes from the regularized function to $\zeta$); $\mu$ is convex \cite[Lemma~6.3]{ANTEDB} and finite on $\mathbb R$, hence continuous, so $\mu(7/8)=\lim_{\sigma\downarrow7/8}\mu(\sigma)=0$. Convexity between $\sigma=1/2$ and $\sigma=7/8$ gives $\mu(\sigma)\le\mu(1/2)\,\frac{7/8-\sigma}{3/8}\le\frac{13}{84}\cdot\frac83\bigl(\tfrac78-\sigma\bigr)$. The comparison with the table is a finite computation (script \texttt{lab/growth78/compare\_mu.py}).
+\end{proof}
+
+\begin{corollary}[conductor aspect]\label{cor:q}
+Assume (H). Let $c\ge0$ and suppose that for a class $\mathcal C$ of primitive nonprincipal characters one has $L(\tfrac12+it,\chi)\ll_\varepsilon(q(|t|+2))^{c+\varepsilon}$ for all $\chi\in\mathcal C$ and all $t$. Then for $\chi\in\mathcal C$, uniformly in $t$,
+\[
+L(\sigma+it,\chi)\ \ll_{\varepsilon}\ (q(|t|+2))^{\,c\,(7/8-\sigma)/(3/8)+\varepsilon}\qquad(\tfrac12\le\sigma\le\tfrac78).
+\]
+In particular, with the convexity bound $c=1/4$ (all $q$), the exponent $\tfrac23(\tfrac78-\sigma)$; with the Weyl-strength bound $c=1/6$ of Petrow--Young \cite{PY23} (all $q$), the exponent $\tfrac49(\tfrac78-\sigma)$, e.g.\ $q^{1/18+\varepsilon}$ at $\sigma=3/4$ against the convexity exponent $1/8$ and the explicit Burgess-type $q$-aspect exponent $31/80-2\sigma/5=7/80$ of \cite[Thm.~1.3]{Fra22}.
+\end{corollary}
+\begin{proof}
+Phragm\'en--Lindel\"of for the entire function $L(s,\chi)$, of finite order in the strip by the functional equation, in $\tfrac12\le\Re s\le\tfrac78+\delta$, with the hypothesis on the left line and Theorem~\ref{thm:main} on the right line; choose $\delta=\delta(\varepsilon)$ so that the exponent changes by at most $\varepsilon$ (the constants of Theorem~\ref{thm:main} depend on $\delta$, hence on $\varepsilon$).
+\end{proof}
+
+\begin{remark}[zero density]
+The standard theorems that convert a growth bound at one abscissa $\alpha$ into a zero-density bound (Montgomery \cite[Thm.~12.3]{Mon71}, in the form $A(\sigma)\le\mu(\alpha)\cdot2(3\sigma-1-2\alpha)/((2\sigma-1-\alpha)(\sigma-\alpha))$ for $(\alpha+1)/2\le\sigma\le1$, \cite[Lemma~11.27]{ANTEDB}; the Hal\'asz--Montgomery inequality in the form of \cite[Cor.~8.13]{ANTEDB}) only produce bounds for $\sigma\ge(1+\alpha)/2$. With $\alpha\ge7/8$ this is $\sigma\ge15/16$, where (H) already gives $N(\sigma,T)=0$. Feeding the improved $\mu(\alpha)$ of Corollary~\ref{cor:mu} for $\alpha\in(0.684,7/8)$ into Montgomery's theorem produces bounds for $\sigma\ge(1+\alpha)/2>0.842$; a direct computation (\texttt{lab/growth78/density\_check.py}) shows that on $[0.842,7/8)$ the resulting bound, minimized over $\alpha$ with $\mu(\alpha)$ replaced by the minimum of the table value and $\tfrac{26}{63}(\tfrac78-\alpha)$, is attained as $\alpha\to1/2$ and exceeds $2$ (e.g.\ $2.06$ at $\sigma=7/8$, $2.43$ at $\sigma=0.85$), whereas \cite[Table~11.1]{ANTEDB} gives $A(\sigma)<2$ there; and \cite[Cor.~8.13]{ANTEDB} with $\sigma'>0.684$ yields Montgomery's large-values conjecture only for $\tau<1$, where it is trivial. Ivi\'c's large-values theorem \cite[Thm.~8.15]{ANTEDB} is \cite[Cor.~8.13]{ANTEDB} with the abscissa $\sigma'$ optimised and $\mu$ replaced by a piecewise majorant; recomputing the Montgomery range $\sup_{\sigma'<2\sigma-1}(2\sigma-1-\sigma')/\mu(\sigma')$ with $\mu$ replaced by the minimum of the table value and $\tfrac{26}{63}(\tfrac78-\sigma')$ (\texttt{lab/growth78/cor813\_check.py}) shows that the supremum is attained at $\sigma'=1/2$ for every $\sigma\le7/8$, so the improved $\mu$ on $(0.684,7/8)$ never enters. We also checked, with the derivation engine of \cite{ANTEDB} (commit \texttt{c8eda5e}), that the zeta-large-value term of its Corollary~11.7 on $[0.7,7/8]$ is unchanged by the new $\mu$ bounds for $\tau_0\in\{3,5\}$. So nothing new below $7/8$ follows from (H) by any of the $\mu$-based routes: the growth improvement of Corollary~\ref{cor:mu} is real but does not propagate to zero density.
+\end{remark}
+
+\begin{remark}
+Nothing here is new as a method; the content is the explicit recording of what (H) gives, which none of \cite{Ope26,Liu26,Liu26b,XS26,Banks26,LiLiu26} states. If (H) holds as asserted in \cite{Ope26,Ope26lean}, this is the first instance of $\mu(\sigma)=0$ at an abscissa $\sigma<1$; we have not independently checked \cite{Ope26} and state everything conditionally on (H).
+\end{remark}
+
+\begin{thebibliography}{99}
+\bibitem{ANTEDB} T.~Tao et al., \emph{Analytic Number Theory Exponent Database}, \url{https://teorth.github.io/expdb/}, Chapters 6 (growth of $\zeta$), 8 (large values) and 11 (zero density); accessed 2026-10-27.
+\bibitem{Banks26} W.~D.~Banks, On the OpenAI proof that Landau--Siegel zeros do not exist, arXiv:2610.15483.
+\bibitem{Bou17} J.~Bourgain, Decoupling, exponential sums and the Riemann zeta function, \emph{J.\ Amer.\ Math.\ Soc.} 30 (2017), 205--224.
+\bibitem{Fra22} F.~J.~Francis, Explicit subconvexity estimates for Dirichlet $L$-functions, arXiv:2206.11112.
+\bibitem{GM26} L.~Guth, J.~Maynard, New large value estimates for Dirichlet polynomials, \emph{Ann.\ of Math.} 203 (2026), 623--675.
+\bibitem{MV} H.~L.~Montgomery, R.~C.~Vaughan, \emph{Multiplicative Number Theory I}, Cambridge, 2007.
+\bibitem{TitF} E.~C.~Titchmarsh, \emph{The Theory of Functions}, 2nd ed., Oxford, 1939.
+\bibitem{LiLiu26} H.~Li, Z.~Liu, Fourth moments of prime exponential sums and exceptional sets for sums and differences of primes, arXiv:2610.26756.
+\bibitem{Liu26} B.~Liu, Improved zero-free half-planes for the quasi-Riemann hypothesis, arXiv:2610.12234.
+\bibitem{Liu26b} B.~Liu, Zero-free half-planes for Hecke $L$-functions over number fields, arXiv:2610.26835.
+\bibitem{Mon71} H.~L.~Montgomery, \emph{Topics in Multiplicative Number Theory}, Lecture Notes in Math.\ 227, Springer, 1971.
+\bibitem{Ope26} OpenAI, The quasi-Riemann hypothesis: a zero-free half-plane $\Re s>7/8$, manuscript dated 2026-09-30, \texttt{github.com/openai/math}, \texttt{preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/paper.pdf}.
+\bibitem{Ope26lean} OpenAI, Scope of the Lean formalization for family 003, \texttt{github.com/openai/math/blob/main/lean/docs/003.md}.
+\bibitem{PY23} I.~Petrow, M.~P.~Young, The fourth moment of Dirichlet $L$-functions along a coset and the Weyl bound, \emph{Duke Math.\ J.} 172 (2023), 1879--1960.
+\bibitem{TY24} T.~Trudgian, A.~Yang, exponent-pair bounds for $\mu(\sigma)$ as compiled in \cite[Thm.~6.13, Table~6.2]{ANTEDB}.
+\bibitem{XS26} Y.~Xu, H.~Sang, Amplified moments and a refinement of the quasi-Riemann hypothesis, arXiv:2610.15291.
+\end{thebibliography}
+\end{document}

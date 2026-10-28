@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}[lemma]{Remark}
+\newcommand{\N}{\mathrm N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\title{The quartic analogue over $\Z[i]$ of the cubic-theta zero-free half-plane argument, and where it stops}
+\author{S.~Reiner\thanks{Prepared with the assistance of Claude (Anthropic); the author takes responsibility for the content.}}
+\date{October 28, 2026 --- draft v2 (after one internal referee pass), not yet externally reviewed}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In the OpenAI zero-free half-plane argument the boundary $11/12$ of the first stage is $1-\tfrac12\cdot\tfrac16$, the $\tfrac16$ being the order of the sextic residue symbol used to embed the M\"obius sum into a family in which the Gauss--Jacobi relations convert the M\"obius function into cubic Gauss sums, the Fourier coefficients of Kubota's cubic theta function. We show that the arithmetic half of this mechanism goes through verbatim with the quartic symbol over $\Z[i]$: for squarefree primary $n$, $\mu(n)\tilde g_{-1}(n)=\chi_n(-1)\overline{\alpha(n)}\tilde g_1(n)$, so the quartic family would start at $1-\tfrac12\cdot\tfrac14=7/8$ before any refinement. No automorphic input of the required shape is known: the quartic Gauss sums are Whittaker coefficients of the distinguished theta function on the $4$-fold cover of $\mathrm{GL}_3(\Q(i))$, not of a form on a cover of $\mathrm{GL}_2$, and the twisted Dirichlet series they generate has conductor $\N(h)^3$ in the row variable, so its functional equation lengthens the column sum instead of shortening it. We state the missing input in one sentence; we do not prove that it cannot exist.
+\end{abstract}
+
+\section{The sextic mechanism}
+We follow the $11/12$ manuscript \cite[\S2, \S4.1, App.~A.1]{Ope26b} (labels: [EST] checked in the source, [DERIVED] computed here, [LIT] quoted, [JUDG] judgement). Over $O=\Z[\omega]$ the M\"obius sum $A_1(D)=\sum\mu(n)\nu(n)W(\N n/D)$ is embedded in $A_u(D)=\sum\mu(n)\nu(n)\chi_n(u)W(\N n/D)$, $\chi_n=(\cdot/n)_6$. Three facts carry the argument [EST]:
+\begin{enumerate}
+\item \emph{Amplifier.} $\chi_n(p^6)=\mathbf 1_{p\nmid n}$, so the rows $u=p^6$, $Y/2<\N p\le Y$, reproduce $A_1$ up to $O(D/Y)$; with $Y=H^{1/6}$ and the mean square $\sum_{\N u\le H}|A_u|^2\ll D^{1+\varepsilon}H$ this gives $A_1\ll D^{11/12+\varepsilon}$ (eqs.\ (2.4)--(2.5) there).
+\item \emph{M\"obius absorption.} With normalised Gauss sums $\gamma_j(n)=\N(n)^{-1/2}\sum_x\chi_n(x)^je(x/n)$ and $\alpha(n)=n/|n|$, Lemma~4.1 there gives $\gamma_2(n)^3=\mu(n)\alpha(n)$ and $\mu(n)\gamma_{-1}(n)=\chi_n(-1)G(n)^{-1}\alpha(n)\gamma_2(n)$, $G$ an explicit ray-class factor; the sign $-1$ per prime comes from $J(\chi^2,\chi^2)=-p$.
+\item \emph{Automorphy.} $\gamma_2(n)$, a cubic Gauss sum, is the Fourier coefficient at $\lambda^{-3}n$ of Kubota's cubic theta function on the $3$-fold cover of $\mathrm{GL}_2(\Q(\omega))$ (Patterson \cite{Pat77}); the theta transformation of Dunn--Radziwi\l\l\ \cite{DR24} sends column scale $X$ to dual scale $\N(h)^2/X$ with the dual twist $\chi_h^{-1}\chi_h^{-2}=\chi_h^3$ quadratic (eq.\ (2.14) there), so the quadratic large sieve of Goldmakher--Louvel applies with the factor $M+L$.
+\end{enumerate}
+
+\section{The arithmetic half goes through over $\Z[i]$}
+Let $O=\Z[i]$; call $n$ primary if $n\equiv1\pmod{2+2i}$ (unique primary generator per odd ideal). For a primary prime $\pi$ of norm $p\equiv1\ (4)$ let $\chi_\pi(x)\equiv x^{(p-1)/4}\pmod\pi\in\mu_4\subset O$, extended multiplicatively in the denominator; $e(z)=\exp(2\pi i\,\mathrm{Tr}\,z)$; $\tilde g_j(n)=\N(n)^{-1/2}\sum_{x\bmod n}\chi_n(x)^je(x/n)$ for $j=1,2,3$ ($\tilde g_3=\tilde g_{-1}$); $\alpha(n)=n/|n|$.
+
+\begin{lemma}[quartic M\"obius absorption]\label{lem:abs}
+For squarefree primary $n\in\Z[i]$:
+\begin{enumerate}
+\item[(i)] $\tilde g_1(n)^2=\mu(n)\alpha(n)$;
+\item[(ii)] $\tilde g_2(n)=\chi_n(-1)=(-1)^{(\N n-1)/4}$, the ray-class character modulo $4$;
+\item[(iii)] $\tilde g_1(n)\tilde g_{-1}(n)=\chi_n(-1)$;
+\item[(iv)] $\mu(n)\,\tilde g_{-1}(n)=\chi_n(-1)\,\overline{\alpha(n)}\,\tilde g_1(n)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+At a prime: $\tilde g_1^2=(J(\chi,\chi)/\sqrt p)\,\tilde g_2$ and $J(\chi_\pi,\chi_\pi)=-\chi_\pi(-1)\pi$ for primary $\pi$ \cite[Ch.~9, Prop.~9.9.4; equivalently Prop.~9.10.1]{IR} (cf.\ \cite[(3.11)]{DDHL}); since $O/\pi\cong\mathbb F_p$ with $\mathrm{Tr}(x/\pi)=2ax/p$ ($\pi=a+bi$), $\tilde g_2(\pi)=\sum_x(x/p)e(2ax/p)/\sqrt p=(2a/p)=(2/p)=(-1)^{(p-1)/4}=\chi_\pi(-1)$, using $(a/p)=(p/|a|)=(b^2/|a|)=1$ (as $p\equiv1\ (4)$, $p\equiv b^2\ (a)$) and $(2/p)=(-1)^{(p-1)/4}$ for $p\equiv1\ (4)$; this is (ii); hence $\tilde g_1^2=-\chi(-1)\alpha\chi(-1)=-\alpha=\mu(\pi)\alpha(\pi)$, which is (i); (iii) is $g(\bar\chi)=\chi(-1)\overline{g(\chi)}$ together with $|\tilde g_1(\pi)|=1$ (the additive character $e(\mathrm{Tr}(x/n))$ is primitive modulo odd $n$); (iv) is (iii) divided by (i). For an inert prime $\pi=-q$, $q\equiv3\ (4)$, $O/\pi=\mathbb F_q(i)$ and $\chi_\pi(x)\equiv x^{(q^2-1)/4}$ is trivial on $\mathbb F_q^\times$ (as $(q+1)/2$ is even); grouping $x$ by $\mathbb F_q^\times$-cosets, $\sum_{t\in\mathbb F_q^\times}e(\mathrm{Tr}(tc/\pi))=q\mathbf 1_{\mathrm{Tr}\,c=0}-1$, so $\tilde g_j(\pi)=\chi_\pi(i)^j$ for $j=1,3$ and $\tilde g_2(\pi)=1$; here $\chi_\pi(i)=i^{(q^2-1)/4}=\pm1$, $\chi_\pi(-1)=1$ and $\mu(\pi)\alpha(\pi)=(-1)(-1)=1$, so (i)--(iv) hold. For squarefree $n=ab$, $(a,b)=1$, the Chinese remainder theorem gives $\tilde g_j(ab)=\tilde g_j(a)\tilde g_j(b)\bigl(\chi_a(b)\chi_b(a)\bigr)^j$ and quartic reciprocity for primary $a,b$ gives $\chi_a(b)=\pm\chi_b(a)$, hence $\epsilon:=\chi_a(b)\chi_b(a)=\pm\chi_b(a)^2=\pm1$. Then $\tilde g_j(ab)=\tilde g_j(a)\tilde g_j(b)\epsilon^j$ with $\epsilon^{-1}=\epsilon$, so both sides of (i)--(iii) are multiplicative and both sides of (iv) pick up the same factor $\epsilon$; hence (i)--(iv) hold for squarefree primary $n$.
+\end{proof}
+[DERIVED] Identities (i)--(iv) were verified numerically for all split primary primes of norm $\le73$ and for squarefree $n$ with two and three split prime factors up to norm $18241$, with $|\mathrm{LHS}-\mathrm{RHS}|\le5\cdot10^{-15}$ (\texttt{lab/quartic/mobius\_absorption\_check.py}; the prime-level relations $\tilde g_1^2=J\tilde g_2$, $J=-\chi(-1)\pi$ independently in \texttt{gauss\_identity\_check.py}), and for the inert primes $-3,-7,-11$ and products of inert and split primes up to norm $585$ with errors $\le3\cdot10^{-13}$ (\texttt{inert\_check.py}).
+
+So the M\"obius function is absorbed exactly as in the sextic case, with the explicit factor $\chi_n(-1)$ in place of $\chi_n(-1)G(n)^{-1}$. The one difference: the surviving Gauss sum $\tilde g_1$ is still of order $4$ (the cubic case halves $6\to3$; here the order-$2$ sum is a constant and carries nothing).
+
+\begin{remark}[amplifier arithmetic]
+[DERIVED] Rows $u=p^4$ reproduce $A_1$; there are $\asymp H^{1/4}/\log H$ of them. If $\sum_{\N u\le H}|A_u(D)|^2\ll D^{1+\varepsilon}H$ held, then $|A_1|^2\ll D^{1+\varepsilon}H^{3/4}+D^2H^{-1/2}$, and with $H=D^{1+\vartheta}$, $A_1\ll D^{7/8+3\vartheta/8+\varepsilon}$: the first stage would start at $7/8=1-\tfrac12\cdot\tfrac14$ instead of $11/12$. (General pattern: a family of order $2k$ gives $1-1/(4k)$; $k=1$ is the quadratic case, see Remark~\ref{rem:quad}.) [JUDG] Replacing sixth by fourth powers in the bookkeeping of the $7/8$ paper would formally turn $\sigma_0=1-h/6+b/12$ into $1-h/4+b/8$, which at the first-stage values $(h,b)=(1/2,0)$ returns $7/8$; but the two energy constraints that cap the slot length and the row counts of \cite{Liu26a} are tied to the sixth-power structure and would have to be rederived, so this is not a prediction of a refined boundary.
+\end{remark}
+
+\section{The automorphic half fails}
+Everything below concerns the column sum that the mean square produces after Poisson summation in $u$, which by Lemma~\ref{lem:abs} is, up to the explicit factors,
+\begin{equation}\label{eq:col}
+B_h(X)=\sum_{\substack{n\ \text{sqfree primary}}}\tilde g_1(n)\,\overline{\alpha(n)}\,\xi(n)\,\chi_n(h)\,U(\N n/X),
+\end{equation}
+and Step~4 of \cite{Ope26b} needs a transformation of \eqref{eq:col} to a dual sum of length about $\N(h)^2/X$ with a quadratic twist in $h$.
+
+\begin{enumerate}
+\item[(a)] [LIT] Kazhdan--Patterson \cite[Introduction and Thm.~II.2.5]{KP84}: the theta representations on the $n$-fold cover of $\mathrm{GL}_r$ ``have a unique Whittaker model only when $r=n-1$ or $n$''. For $n=4$ the theta on the $4$-fold cover of $\mathrm{GL}_2$ is therefore not distinguished; the distinguished quartic theta lives on the $4$-fold cover of $\mathrm{GL}_3$ (for covers with odd $c$, \cite[\S2]{FG14}).
+\item[(b)] [LIT] The Fourier coefficients of the biquadratic theta on $\mathrm{GL}_2(\Q(i))$ are not quartic Gauss sums; at squarefree indices they are known only conjecturally (Patterson \cite{Pat84}; Eckhardt--Patterson \cite[Conj.~2.11]{EP92}), with Suzuki's results at squares, cubes and fourth powers \cite{Suz83}; David--Dunn--Hamieh--Lin \cite[\S1.2]{DDHL}: ``in general not all determined! This is in stark contrast to the case of the cubic theta function''. Even if Patterson's conjecture were known, the coefficient at a prime would be a square root of the Gauss sum, so this object could not play the role of Kubota's theta.
+\item[(c)] [LIT] The quartic Gauss sums at squarefree moduli \emph{are} the Whittaker coefficients of the distinguished theta on the $4$-fold cover of $\mathrm{GL}_3(\Q(i))$, equivalently the $\nu$-th Fourier--Whittaker coefficient $\psi^{(4)}(s,\nu)=\sum_c\tilde g_4(\nu,c)\N(c)^{-s}$ of Kubota's Eisenstein series on the $4$-fold cover of $\mathrm{GL}_2$ \cite{KP84,CFH12,DDHL}; it has a meromorphic continuation and the functional equation of Diaconu \cite{Dia04}, as used in \cite[(4.28)]{DDHL} (with the normalised $\tilde g_4$ the pole is at $s=3/4$).
+\item[(d)] [DERIVED, from (c)] A rigorous transformation of \eqref{eq:col} therefore exists, but with the wrong conductor. Since $\tilde g_4(h^3,c)=(h/c)_4\,\tilde g_4(1,c)$ for $(h,c)=1$ and $\tilde g_4(1,c)$ vanishes off squarefree $c$, \eqref{eq:col} is a twisted $\psi^{(4)}$-type sum with index $h^3$, of conductor $\N(h)^3$; its functional equation carries the factor $\N(\nu)^{1-s}$ and sends column length $X$ to dual length $\N(h)^3/X$ (cf.\ \cite[\S1.2]{DDHL}, where an index $a^{n-2}$ is said to ``behave like a $\mathrm{GL}_{n-2}$-object in $a$''; here the index is $h^{n-1}=h^3$), against $\N(h)^2/X$ for the cubic theta. The exponent $3$ comes from the sign pairing: Poisson summation produces the index-$h$ sums $\tilde g_1(h,n)=\overline{\chi_n(h)}\tilde g_1(n)$, and the absorption (iv) replaces $\tilde g_1$ by $\tilde g_{-1}$, the inverse character, which turns the pairing into the same-sign one, index $h^3$; in the sextic case absorption replaces $\gamma_{-1}$ by $\gamma_2$, the square, and the sextic twist splits as $\overline{\chi^2_n(h)}\,(h/n)_2$, index $h$ for the cubic part. At the scales of the argument, $X\asymp D$, $\N h\asymp D^{1-\vartheta}$, the dual length is $D^{2-3\vartheta}\gg X$: the transformation lengthens the sum. In the cubic case the dual length $D^{1-2\vartheta}$ is shorter than $X$ by $D^{2\vartheta}$, which is what the quadratic large sieve converts into the target $D^2$. Under \cite[(4.28)]{DDHL} the dual index is again $h^3$ (up to divisors), so the dual twist is the quartic $(h/c')_4$; the quadratic large sieve would not apply, and one would be left with the higher-order large sieve of Blomer--Goldmakher--Louvel with its $(ML)^{2/3}$ term. Thus both the conductor and the twist are worse than in the cubic case; the poles are not the issue (the residue at $s=3/4$ is the theta coefficient at $h^3$, which vanishes for squarefree $h\ne1$ by Suzuki \cite[Thm.~4]{Suz83}, see \cite[(4.38)]{DDHL}).
+\item[(e)] [LIT] A Voronoi formula for sums of quartic Gauss sums with level structure does exist \cite[Lemma~9.2]{DDHL}, but it is the one obtained from (4.28) and therefore carries the conductor of (d); no transformation with a $\mathrm{GL}_2$-type conductor $\N(h)^2$ is known. Friedberg--Ginzburg's descent programme for the quartic $\mathrm{GL}_2$ theta is conjectural \cite{FG14b}.
+\end{enumerate}
+
+\medskip\noindent\textbf{The missing input, in one sentence.} [JUDG] A transformation formula for \eqref{eq:col} whose dual side has length $\approx\N(h)^2/X$ with explicit coefficients and a quadratic twist in $h$, i.e.\ an automorphic form on a cover of $\mathrm{GL}_2(\Q(i))$ whose Fourier coefficients at squarefree indices are the quartic Gauss sums $\tilde g_1(n)$; no such object is known: those Gauss sums are the Whittaker coefficients of the distinguished theta on the $4$-fold cover of $\mathrm{GL}_3$, with conductor $\N(h)^3$ under twisting, while the theta on the $4$-fold cover of $\mathrm{GL}_2$ is not distinguished and its coefficients at primes are unknown and conjecturally square roots of Gauss sums. Nothing in \cite{DDHL,FG14b} suggests this is within reach; the related quartic-bias conjecture for primes is described in \cite{DDHL} as ``well out of reach'' even under GRH (their unconditional result for primes is $X^{5/6+\varepsilon}$).
+
+\begin{remark}[quadratic over $\Q$]\label{rem:quad}
+[JUDG] The order-$2$ family over $\Q$ would give $1-1/4=3/4$ at the first stage, but Poisson summation in $u$ for $\sum_n\mu(n)(u/n)$ produces only explicit quadratic Gauss sums, so the dual of the M\"obius-twisted quadratic family is again a M\"obius-twisted quadratic family (nothing automorphic appears), and its amplifier rows $u=p^2$ are square moduli, on which the symbol is principal and which Theorem~1 of \cite{HB95} excludes (it is stated for odd squarefree moduli, and must be). There is no analogue of Step~4 at all.
+\end{remark}
+
+\begin{remark}[fields are not the lever]
+[LIT] Liu \cite{Liu26b} obtains a uniform zero-free half-plane for finite-order Hecke $L$-functions over every number field, including $\Q(i)$ (abelian over $\Q$, so within his descent hypothesis), by running the $7/8$-type cubic-theta argument over $K(\zeta_{12})$ and descending by class field theory; as far as its abstract shows, no quartic structure is used. The order of the residue symbol, not the field, sets the $1/6$.
+\end{remark}
+
+\begin{thebibliography}{99}
+\bibitem{CFH12} G.~Chinta, S.~Friedberg, J.~Hoffstein, Double Dirichlet series and theta functions, in \emph{Contributions in Analytic and Algebraic Number Theory}, Springer Proc.\ Math.\ 9 (2012), 149--170.
+\bibitem{DDHL} C.~David, A.~Dunn, A.~Hamieh, H.~Lin, Quartic Gauss sums over primes and metaplectic theta functions, arXiv:2306.11875.
+\bibitem{Dia04} A.~Diaconu, Mean square values of Hecke $L$-series formed with $r$-th order characters, \emph{Invent.\ Math.} 157 (2004), 635--684.
+\bibitem{DR24} A.~Dunn, M.~Radziwi\l\l, Bias in cubic Gauss sums: Patterson's conjecture, \emph{Ann.\ of Math.} (2) 200 (2024), no.~3, 967--1057.
+\bibitem{EP92} C.~Eckhardt, S.~J.~Patterson, On the Fourier coefficients of biquadratic theta series, \emph{Proc.\ London Math.\ Soc.} (3) 64 (1992), 225--264.
+\bibitem{FG14} S.~Friedberg, D.~Ginzburg, Metaplectic theta functions and global integrals, arXiv:1403.3929.
+\bibitem{FG14b} S.~Friedberg, D.~Ginzburg, Descent and theta functions for metaplectic groups, \emph{J.\ Eur.\ Math.\ Soc.} 20 (2018); arXiv:1403.3930.
+\bibitem{HB95} D.~R.~Heath-Brown, A mean value estimate for real character sums, \emph{Acta Arith.} 72 (1995), 235--275.
+\bibitem{IR} K.~Ireland, M.~Rosen, \emph{A Classical Introduction to Modern Number Theory}, 2nd ed., Springer, 1990.
+\bibitem{KP84} D.~A.~Kazhdan, S.~J.~Patterson, Metaplectic forms, \emph{Publ.\ Math.\ IH\'ES} 59 (1984), 35--142.
+\bibitem{Liu26a} B.~Liu, Improved zero-free half-planes for the quasi-Riemann hypothesis, arXiv:2610.12234.
+\bibitem{Liu26b} B.~Liu, Zero-free half-planes for Hecke $L$-functions over number fields, arXiv:2610.26835.
+\bibitem{Ope26b} OpenAI, The quasi-Riemann hypothesis, manuscript dated 2026-10-05 (the $49$-page $11/12$ proof; the parenthetical is ours), \texttt{github.com/openai/math}.
+\bibitem{Pat77} S.~J.~Patterson, A cubic analogue of the theta series, \emph{J.\ reine angew.\ Math.} 296 (1977), 125--161.
+\bibitem{Pat84} S.~J.~Patterson, Whittaker models of generalized theta series, in \emph{S\'eminaire de Th\'eorie des Nombres, Paris 1982--83}, Progr.\ Math.\ 51 (1984), 199--232.
+\bibitem{Suz83} T.~Suzuki, Some results on the coefficients of the biquadratic theta series, \emph{J.\ reine angew.\ Math.} 340 (1983), 70--117.
+\end{thebibliography}
+\end{document}
