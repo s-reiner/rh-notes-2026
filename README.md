@@ -42,9 +42,12 @@ bound log log t ≤ log t for ∫ R t⁻³), and `head_bound` gives Σ 2(1 − c
 `lean/LiOsc.lean` is Lemma 4′ (oscillatory head bound): `osc_head_bound` gives Σ 2(1 − cos nθ_γ) ≥ A′(n, T₁) for ordinates in
 (T₁, T₀] with counting function M + S̃ − (M(T₁) + S̃(T₁)), |S̃| ≤ R, exactly the expression A′ of the note and the script; Bonnet's
 mean value theorem is replaced by an integration by parts against sin(nθ) with the increasing weight M′(t)(t² + 1/4)
-(`osc_integral_le`). NOT formalized: the three analytic inputs (zero-sum formula, verification height, explicit zero count),
-the reduction of the symmetric zero sum to ordinates γ > 0 (on-line pairs and off-line quadruples), the chain logic, and the
-numerical interval chain, which remains an external Arb certificate.
+(`osc_integral_le`). `lean/LiSymm.lean` reduces the finite symmetric zero sum to ordinates γ > 0: for a finite family of zeros
+closed under ρ ↦ ρ̄ and ρ ↦ 1 − ρ (given as involutions of the index set, so multiplicities are respected), `partial_sum_ge`
+gives Σ Re[1 − (1 − 1/ρ)ⁿ] ≥ Σ_{0<γ≤T₀} 2(1 − cos nθ_γ) − 4 Σ_{γ>T₀} g_{nc}(γ), using 1 − 1/ρ = e^{iθ_γ} on the line
+(`online_w`) and Lemma 2 with the δ-bound off the line (`Forb_offline`). NOT formalized: the three analytic inputs (zero-sum
+formula and its symmetric exhaustion, verification height, explicit zero count), the final assembly with the counting function
+and the interval/chain logic, and the numerical interval chain, which remains an external Arb certificate.
 The Lean δ-bound uses the Mathlib-provable constant 2x² (the note proves x²); the certificate passes unchanged with the corresponding
 c = 1 + 2·T₀⁻² (same N₀).
 
